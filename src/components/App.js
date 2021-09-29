@@ -2,14 +2,23 @@ import React from 'react';
 // import '../App.css';
 import Header from './Header';
 import Main from './Main';
+import Signin from "./SignIn";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import Footer from './Footer';
 
 function App() {
   return (
-    <React.Fragment>
+    <Router>
       <Header />
-      <Main />
-    </React.Fragment>
+      <Switch>
+        <Route path="/signin">
+          <Signin />
+        </Route>
+        <Route path="/">
+          <Main />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
