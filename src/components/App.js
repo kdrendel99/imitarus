@@ -1,24 +1,30 @@
-import React from 'react';
-// import '../App.css';
-import Header from './Header';
+import React from "react";
+import Header from "./Header";
 import Main from './Main';
 import Signin from "./SignIn";
+import Signup from "./SignUp";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import Footer from './Footer';
+// import * as firebase from 'firebase';
 
-function App() {
+
+function App(){
   return (
-    <Router>
+    <React.Fragment>
+      {/* <Router> */}
       <Header />
-      <Switch>
-        <Route path="/signin">
-          <Signin />
-        </Route>
-        <Route path="/">
+      {/* <Switch> */}
+        {/* <Route path="/signin"> */}
+          {/* <Signin /> */}
+        {/* </Route> */}
+        {/* <Route path="/signup"> */}
+          {/* <Signup /> */}
+        {/* </Route> */}
+        {/* <Route path ="/"> */}
           <Main />
-        </Route>
-      </Switch>
-    </Router>
+        {/* </Route> */}
+      {/* </Switch> */}
+    {/* </Router> */}
+    </React.Fragment>
   );
 }
 
