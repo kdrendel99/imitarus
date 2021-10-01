@@ -1,7 +1,8 @@
 import React, {componentDidUpdate} from 'react';
 import Home from './Home';
-import PromptDetail from './PromptDetail';
-import EditPromptForm from './EditPromptForm';
+import PromptDetail from './prompts/PromptDetail';
+import NewPostForm from './posts/NewPostForm';
+import EditPromptForm from './prompts/EditPromptForm';
 import PropTypes from "prop-types";
 import * as a from '../actions';
 import * as c from './../actions/ActionTypes';
@@ -14,7 +15,8 @@ class Main extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      editing: false
+      editing: false,
+      showNewPost: false
     };
   }
 
@@ -28,6 +30,12 @@ class Main extends React.Component{
 
   handleClick = () => {
     this.clearPrompt();
+  }
+
+  handleShowNewPost = () => {
+    this.setState(prevState => ({
+      showNewPost: !prevState.showNewPost
+    }))
   }
 
   dispatchSelectedPrompt = (firestorePrompt) => {
@@ -90,7 +98,15 @@ class Main extends React.Component{
       if (this.state.editing) {      
         currentlyVisibleState = <EditPromptForm prompt = {this.props.selectedPrompt} onEditPrompt = {this.handleEditingPromptInList} />
         buttonText = "return to prompts list";
-      } else if (this.props.selectedPrompt != null) {
+      } else if (this.state.showNewPost === true) {
+        currentlyVisibleState = <NewPostForm 
+        returnHome={this.handleShowNewPost} 
+        />
+        buttonText = "return to prompts list";
+      }
+      
+      
+      else if (this.props.selectedPrompt != null) {
         currentlyVisibleState = <PromptDetail 
         prompt={this.props.selectedPrompt} 
         onClickingDelete={this.handleDeletingPrompt} 
@@ -100,6 +116,7 @@ class Main extends React.Component{
       }
       else {
         currentlyVisibleState = <Home onPromptSelection={this.handleChangingSelectedPrompt}
+        showNewPostForm={this.handleShowNewPost}
         />
         buttonText = null;
       }
@@ -108,6 +125,7 @@ class Main extends React.Component{
     return (
       <React.Fragment>
         {currentlyVisibleState}
+        <hr/>
         <button onClick={this.handleClick}>{buttonText}</button>
       </React.Fragment>
     );

@@ -1,8 +1,9 @@
 import React from "react";
 import Header from "./Header";
 import Main from './Main';
-import Signin from "./SignIn";
-import Signup from "./SignUp";
+import Signin from "./users/SignIn";
+import Signup from "./users/SignUp";
+// import {storage} from "../firebase"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import * as firebase from 'firebase';
 

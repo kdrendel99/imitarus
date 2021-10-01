@@ -21,7 +21,6 @@ function Prompt(props){
         <div onClick = {() => props.whenPromptClicked(props.id)}>
           <h1>{props.name}</h1>
           {/* <h4>{(props.timestamp).toString()}</h4> */}
-          {/* <h3>{props.body}</h3> */}
           {/* <h4>Score: {props.score}</h4> */}
         </div>
         {/* <button onClick = {() => whenVoteClicked(props.id, props.score, 1)}>Upvote</button> */}

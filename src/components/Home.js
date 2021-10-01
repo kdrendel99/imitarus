@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Prompt from "./Prompt";
+import Prompt from "./prompts/Prompt";
 import PropTypes from "prop-types";
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
@@ -43,6 +43,7 @@ function Home(props){
             key={prompt.id}/>
         })}
         <button onClick={() => newPrompt()}>New random prompt</button>
+        <button onClick={() => props.showNewPostForm()}>Upload new post</button>
       </React.Fragment>
     );
   // If the prompts aren't loaded yet, our fragment will return a "Loading..." message.
