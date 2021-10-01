@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import firebase from '../../firebase';
 
-const NewFormPost = () => {
+function NewFormPost(props){
   const [uploadedImage, setUploadedImage] = useState(null);
   const [downloadUrl, setDownloadUrl] = useState(null);
   const [progress, setProgress] = useState(0);
+
+  // useEffect(() => {
+  //   if (progress === 100){
+  //     props.returnHome();
+  //   }
+  // })
 
   const handleChange = e => {
     if (e.target.files[0]){
@@ -35,41 +41,23 @@ const NewFormPost = () => {
 
   return (
     <React.Fragment>
+      {/* {progress === 100? props.returnHome() : null} */}
       <h4>Upload a new post</h4>
-      <label>
-        Choose file
-        <input type="file" id="file" onChange={handleChange}/>
-      </label>
-
-      {progress}
-      <button onClick={handleUpload}>Upload</button>
       <img
         className="ref"
-        src={{downloadUrl} || "https://via.placeholder.com/400/300"}
-        alt="Uploaded image"
-        height="300"
-        width="400"
+        // src={downloadUrl}
+        src={uploadedImage? URL.createObjectURL(uploadedImage) : null}
+        alt={uploadedImage? "Uploaded photograph" : null}
+        height={uploadedImage? 300 : null}
+        // width="600"
       />
+      <input type="file" id="file" onChange={handleChange}/>
+
+      <span style={progress === 100? {color:"green"}: null}>{progress}%</span>
+      <button onClick={handleUpload}>Upload</button>
+      <hr/>
+      <button onClick={() => props.returnHome()}>Return to prompt list</button>
     </React.Fragment>
-    // <div>
-    //   <h1>Upload a new post</h1>
-    //   {uploadedImage && (
-    //     <div>
-    //     <img alt="not fount" width={"250px"} src={URL.createObjectURL(uploadedImage)} />
-    //     <br />
-    //     <button onClick={()=>setUploadedImage(null)}>Remove</button>
-    //     </div>
-    //   )}
-    //   <form>
-    //   <input
-    //     type="file"
-    //     name="myImage"
-    //     onChange={(event) => {
-    //       setUploadedImage(event.target.files[0]);
-    //     }}
-    //   />
-    //   </form>
-    // </div>
   );
 };
 

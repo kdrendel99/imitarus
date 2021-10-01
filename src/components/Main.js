@@ -98,11 +98,11 @@ class Main extends React.Component{
       if (this.state.editing) {      
         currentlyVisibleState = <EditPromptForm prompt = {this.props.selectedPrompt} onEditPrompt = {this.handleEditingPromptInList} />
         buttonText = "return to prompts list";
-      } else if (this.state.showNewPost === true) {
+      } 
+      else if (this.state.showNewPost === true) {
         currentlyVisibleState = <NewPostForm 
         returnHome={this.handleShowNewPost} 
         />
-        buttonText = "return to prompts list";
       }
       
       
