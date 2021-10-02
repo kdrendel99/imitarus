@@ -8,6 +8,7 @@ import * as a from '../actions';
 import * as c from './../actions/ActionTypes';
 import { connect } from 'react-redux';
 import { withFirestore, isLoaded } from 'react-redux-firebase';
+import NewFormPost from './posts/NewPostForm';
 
 
 
@@ -16,8 +17,14 @@ class Main extends React.Component{
     super(props);
     this.state = {
       editing: false,
-      showNewPost: false
+      newPostFormVisible: false
     };
+  }
+
+  handleShowNewPostForm = () => {
+    this.setState(prevState => ({
+      newPostFormVisible: !prevState.newPostFormVisible
+    }));
   }
 
   clearPrompt = () => {
@@ -30,12 +37,6 @@ class Main extends React.Component{
 
   handleClick = () => {
     this.clearPrompt();
-  }
-
-  handleShowNewPost = () => {
-    this.setState(prevState => ({
-      showNewPost: !prevState.showNewPost
-    }))
   }
 
   dispatchSelectedPrompt = (firestorePrompt) => {
@@ -54,7 +55,6 @@ class Main extends React.Component{
         timestamp: (prompt.get("timestamp").toDate().toString()),
         id: prompt.id
       }
-      // console.log(firestorePrompt);
       this.dispatchSelectedPrompt(firestorePrompt);
     })
   }
@@ -99,34 +99,33 @@ class Main extends React.Component{
         currentlyVisibleState = <EditPromptForm prompt = {this.props.selectedPrompt} onEditPrompt = {this.handleEditingPromptInList} />
         buttonText = "return to prompts list";
       } 
-      else if (this.state.showNewPost === true) {
-        currentlyVisibleState = <NewPostForm 
-        returnHome={this.handleShowNewPost} 
+      else if (this.state.newPostFormVisible){
+        currentlyVisibleState = <NewFormPost
+        prompt = {this.props.selectedPrompt}
+        returnHome = {this.handleShowNewPostForm}
         />
       }
-      
       
       else if (this.props.selectedPrompt != null) {
         currentlyVisibleState = <PromptDetail 
         prompt={this.props.selectedPrompt} 
         onClickingDelete={this.handleDeletingPrompt} 
         onClickingEdit={this.handleEditClick} 
+        onClickingNewPost = {this.handleShowNewPostForm}
+        returnHome = {this.handleClick}
         />
-        buttonText = "return to prompts list";
       }
       else {
         currentlyVisibleState = <Home onPromptSelection={this.handleChangingSelectedPrompt}
-        showNewPostForm={this.handleShowNewPost}
         />
         buttonText = null;
       }
-    // }
 
     return (
       <React.Fragment>
         {currentlyVisibleState}
         <hr/>
-        <button onClick={this.handleClick}>{buttonText}</button>
+        {/* <button onClick={this.handleClick}>{buttonText}</button> */}
       </React.Fragment>
     );
   }
@@ -141,8 +140,6 @@ const mapStateToProps = state => {
     selectedPrompt: state.selectedPrompt.selectedPrompt,
   }
 }
-
-// Note: we are now passing mapStateToProps into the connect() function.
 
 Main = connect(mapStateToProps)(Main);
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Prompt from "./prompts/Prompt";
 import PropTypes from "prop-types";
 import { useSelector } from 'react-redux'
@@ -8,6 +8,7 @@ import { useFirestore } from 'react-redux-firebase';
 
 function Home(props){
   // const { prompt } = props;
+
   const firestore = useFirestore();
 
   useFirestoreConnect([
@@ -32,7 +33,6 @@ function Home(props){
     return (
       <React.Fragment>
         <h4>HOME</h4>
-        {/* <hr/> */}
         {prompts.map((prompt) => {
           return <Prompt
             whenPromptClicked = { props.onPromptSelection }
@@ -43,10 +43,8 @@ function Home(props){
             key={prompt.id}/>
         })}
         <button onClick={() => newPrompt()}>New random prompt</button>
-        <button onClick={() => props.showNewPostForm()}>Upload new post</button>
       </React.Fragment>
     );
-  // If the prompts aren't loaded yet, our fragment will return a "Loading..." message.
   } else {
     return (
       <React.Fragment>
@@ -55,7 +53,7 @@ function Home(props){
     )
   }
 }
-//
+
 Home.propTypes = {
   onPromptSelection: PropTypes.func
 };

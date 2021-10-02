@@ -1,10 +1,29 @@
+import { firestore } from "firebase";
 import React, { useEffect, useState } from "react";
 import firebase from '../../firebase';
+import { useSelector } from 'react-redux'
+import { useFirestore, useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 
 function NewFormPost(props){
   const [uploadedImage, setUploadedImage] = useState(null);
   const [downloadUrl, setDownloadUrl] = useState(null);
   const [progress, setProgress] = useState(0);
+
+  const firestore = useFirestore();
+  const posts = useSelector(state => state.firestore.ordered.posts);
+
+  useFirestoreConnect([
+    { collection: 'posts' }
+  ]);
+
+  const newPrompt = () => {
+        firestore.collection('posts').add(
+        {
+          name: 'thing',
+          timestamp: firestore.FieldValue.serverTimestamp()
+        }
+      )
+  }
 
   // useEffect(() => {
   //   if (progress === 100){
@@ -17,6 +36,10 @@ function NewFormPost(props){
       setUploadedImage(e.target.files[0])
     }
   }
+
+  // function addPostToPrompt(event, promptId){
+  //   return firestore.CollectionReference('prompts')
+  // }
 
   const handleUpload = () => {
     const file = uploadedImage;
@@ -33,6 +56,8 @@ function NewFormPost(props){
       },() => {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           setDownloadUrl(url)
+          console.log('download url')
+          console.log(downloadUrl);
         })
         document.getElementById('file').value = null
       }
@@ -56,7 +81,7 @@ function NewFormPost(props){
       <span style={progress === 100? {color:"green"}: null}>{progress}%</span>
       <button onClick={handleUpload}>Upload</button>
       <hr/>
-      <button onClick={() => props.returnHome()}>Return to prompt list</button>
+      <button onClick={() => props.returnHome()}>Return to prompt</button>
     </React.Fragment>
   );
 };
