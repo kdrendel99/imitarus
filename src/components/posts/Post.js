@@ -3,27 +3,27 @@ import PropTypes from "prop-types";
 import styled from 'styled-components';
 import { useFirestore } from 'react-redux-firebase';
 
-function Prompt(props){ 
+function Post(props){ 
   const firestore = useFirestore();
   const LeftMarg = styled.section`
   margin-left: 20px;
 `;
-  const [jsonified, setJsonified] = useState(null);
 
   // function whenVoteClicked(id, currScore, vote){
-  //   const firestorePromptScore = {
+  //   const firestorePostScore = {
   //     score: currScore + vote
   //   }
-  //   firestore.update({collection: 'prompts', doc: id}, firestorePromptScore );
+  //   firestore.update({collection: 'Posts', doc: id}, firestorePostScore );
   // }
   return (
     <React.Fragment>
       <LeftMarg>
-        <div onClick = {() => props.whenPromptClicked(props.id)}>
-          <h1>{props.name}</h1>
-          {/* {console.log('prompt posts:')}
-          {console.log(props.posts)} */}
-
+        {/* <div onClick = {() => props.whenPostClicked(props.id)}> */}
+        <div>
+          <img src={props.imageRef} height="250"/>
+          <h5>@{props.userId} - {props.timestamp}</h5>
+          {/* <h4>{props.promptId}</h4> */}
+          <h4>{props.score}</h4>
 
           {/* <h1>{JSON.stringify(props.posts)}</h1> */}
           {/* <h4>{(props.timestamp).toString()}</h4> */}
@@ -31,18 +31,18 @@ function Prompt(props){
         </div>
         {/* <button onClick = {() => whenVoteClicked(props.id, props.score, 1)}>Upvote</button> */}
         {/* <button onClick = {() => whenVoteClicked(props.id, props.score, -1)}>Downvote</button> */}
-        {/* <button onClick = {() => props.whenVoteClicked(props.id, 1)}>Upvote in Prompt</button>  */}
-        {/* <button onClick = {() => props.whenVoteClicked(props.id, -1)}>Down vote in prompt</button>  */}
+        {/* <button onClick = {() => props.whenVoteClicked(props.id, 1)}>Upvote in Post</button>  */}
+        {/* <button onClick = {() => props.whenVoteClicked(props.id, -1)}>Down vote in Post</button>  */}
       </LeftMarg>
       <hr/>
     </React.Fragment>
   );
 }
 
-// Prompt.propTypes = {
+// Post.propTypes = {
 //   name: PropTypes.string,
 //   id: PropTypes.string,
-//   whenPromptClicked: PropTypes.func
+//   whenPostClicked: PropTypes.func
 // }; 
 
-export default Prompt;
+export default Post;

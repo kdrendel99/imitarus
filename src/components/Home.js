@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Prompt from "./prompts/Prompt";
 import PropTypes from "prop-types";
 import { useSelector } from 'react-redux'
-import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
-import { useFirestore } from 'react-redux-firebase';
+import { useFirestoreConnect, useFirestore, isLoaded } from 'react-redux-firebase'
+// import { useFirestore } from 'react-redux-firebase';
 
 
 function Home(props){
@@ -39,6 +39,7 @@ function Home(props){
             // whenVoteClicked = { props.onVoteClick }
             name={prompt.name}
             timestamp={prompt.timestamp}
+            posts={prompt.posts}
             id={prompt.id}
             key={prompt.id}/>
         })}

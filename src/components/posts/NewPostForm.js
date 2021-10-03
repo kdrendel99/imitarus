@@ -1,29 +1,44 @@
-import { firestore } from "firebase";
+// import { doc, updateDoc, arrayUnion } from "../../firebase.firestore";
 import React, { useEffect, useState } from "react";
 import firebase from '../../firebase';
+// import firestore from '../../firebase/firestore';
+import 'firebase/firestore';
 import { useSelector } from 'react-redux'
-import { useFirestore, useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+// import { getStorage, ref } from "firebase/storage";
+// import { doc, updateDoc, arrayUnion } from "firestore";
 
 function NewFormPost(props){
-  const [uploadedImage, setUploadedImage] = useState(null);
-  const [downloadUrl, setDownloadUrl] = useState(null);
-  const [progress, setProgress] = useState(0);
-
   const firestore = useFirestore();
-  const posts = useSelector(state => state.firestore.ordered.posts);
 
   useFirestoreConnect([
     { collection: 'posts' }
   ]);
 
-  const newPrompt = () => {
-        firestore.collection('posts').add(
-        {
-          name: 'thing',
-          timestamp: firestore.FieldValue.serverTimestamp()
-        }
-      )
-  }
+
+  const { prompt } = props;
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [downloadUrl, setDownloadUrl] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [selectedPrompt, setSelectedPrompt] = useState(prompt.id);
+  const [userId, setUserId] = useState(null);
+
+
+  // useEffect(() => {
+  //   console.log('prompt id:')
+  //   console.log(selectedPrompt)
+  // },[selectedPrompt]);
+
+  // useEffect(() => {
+  //   console.log('download url: ')
+  //   console.log(downloadUrl)
+  // },[downloadUrl]);
+
+  useEffect(() => {
+    if(userId && downloadUrl){
+      addPostToPostCollection();
+    }
+  })
 
   // useEffect(() => {
   //   if (progress === 100){
@@ -37,11 +52,28 @@ function NewFormPost(props){
     }
   }
 
-  // function addPostToPrompt(event, promptId){
-  //   return firestore.CollectionReference('prompts')
-  // }
+  const addPostToPostCollection = () => {
+    const promptRef = firestore.collection('prompts').doc(selectedPrompt);
+    console.log('posted')
+    firestore.collection('posts').add(
+      {
+        imageRef: downloadUrl,
+        userId: userId,
+        promptId: selectedPrompt,
+        score: 0,
+        timestamp: firestore.FieldValue.serverTimestamp()
+      }
+    )
+    // .then(function(newPost){
+    //   promptRef.update({
+    //     posts: firebase.firestore.FieldValue.arrayUnion(newPost)
+    //   })
+    // })
+  }
 
-  const handleUpload = () => {
+  const handleUpload = (e) => {
+    e.preventDefault();
+
     const file = uploadedImage;
     const storage = firebase.storage();
     const storageRef = storage.ref();
@@ -56,37 +88,39 @@ function NewFormPost(props){
       },() => {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           setDownloadUrl(url)
-          console.log('download url')
-          console.log(downloadUrl);
         })
         document.getElementById('file').value = null
       }
-    )
+    );
+    setUserId(e.target.authorId.value);
   }
 
   return (
     <React.Fragment>
-      {/* {progress === 100? props.returnHome() : null} */}
-      <h4>Upload a new post</h4>
-      <img
-        className="ref"
-        // src={downloadUrl}
-        src={uploadedImage? URL.createObjectURL(uploadedImage) : null}
-        alt={uploadedImage? "Uploaded photograph" : null}
-        height={uploadedImage? 300 : null}
-        // width="600"
-      />
-      <input type="file" id="file" onChange={handleChange}/>
-
-      <span style={progress === 100? {color:"green"}: null}>{progress}%</span>
-      <button onClick={handleUpload}>Upload</button>
-      <hr/>
-      <button onClick={() => props.returnHome()}>Return to prompt</button>
+      <h4>Upload a new photo to this prompt</h4>
+      <form onSubmit={handleUpload}>
+      {/* <form onSubmit={addPostToPostCollection}> */}
+        <img
+          className="ref"
+          src={uploadedImage? URL.createObjectURL(uploadedImage) : null}
+          alt={uploadedImage? "Uploaded photograph" : null}
+          height={uploadedImage? 300 : null}
+        />
+        <input type="file" id="file" onChange={handleChange}/>
+        {/* {downloadUrl?downloadUrl.toString(): ""} */}
+        <span style={progress === 100? {color:"green"}: null}>{progress}%</span>
+        <button type="submit">Upload</button>
+        <input type="text" name="authorId" defaultValue="author1" placeholder="Your name"/>
+        <hr/>
+        <button onClick={() => props.returnHome()}>Return to prompt</button>
+      </form>
     </React.Fragment>
   );
 };
 
 export default NewFormPost;
+
+
 
 
 

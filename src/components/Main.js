@@ -1,14 +1,14 @@
-import React, {componentDidUpdate} from 'react';
+import React from 'react';
 import Home from './Home';
 import PromptDetail from './prompts/PromptDetail';
 import NewPostForm from './posts/NewPostForm';
 import EditPromptForm from './prompts/EditPromptForm';
-import PropTypes from "prop-types";
-import * as a from '../actions';
+// import PropTypes from "prop-types";
+// import * as a from '../actions';
 import * as c from './../actions/ActionTypes';
 import { connect } from 'react-redux';
 import { withFirestore, isLoaded } from 'react-redux-firebase';
-import NewFormPost from './posts/NewPostForm';
+// import { firestore } from 'firebase';
 
 
 
@@ -53,6 +53,7 @@ class Main extends React.Component{
       const firestorePrompt = {
         name: prompt.get("name"),
         timestamp: (prompt.get("timestamp").toDate().toString()),
+        // posts: prompt.get("posts"),
         id: prompt.id
       }
       this.dispatchSelectedPrompt(firestorePrompt);
@@ -100,7 +101,7 @@ class Main extends React.Component{
         buttonText = "return to prompts list";
       } 
       else if (this.state.newPostFormVisible){
-        currentlyVisibleState = <NewFormPost
+        currentlyVisibleState = <NewPostForm
         prompt = {this.props.selectedPrompt}
         returnHome = {this.handleShowNewPostForm}
         />
