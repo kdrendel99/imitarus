@@ -97,6 +97,12 @@ function NewFormPost(props){
 
   return (
     <React.Fragment>
+      <div className="padding"/>
+      <div className="padding"/>
+      <div className="padding"/>
+      <div className="padding"/>
+      <div className="padding"/>
+      <div className="padding"/>
       <h4>Upload a new photo to this prompt</h4>
       <form onSubmit={handleUpload}>
       {/* <form onSubmit={addPostToPostCollection}> */}

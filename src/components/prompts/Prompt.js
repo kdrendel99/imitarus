@@ -5,9 +5,6 @@ import { useFirestore } from 'react-redux-firebase';
 
 function Prompt(props){ 
   const firestore = useFirestore();
-  const LeftMarg = styled.section`
-  margin-left: 20px;
-`;
   const [jsonified, setJsonified] = useState(null);
 
   // function whenVoteClicked(id, currScore, vote){
@@ -16,25 +13,22 @@ function Prompt(props){
   //   }
   //   firestore.update({collection: 'prompts', doc: id}, firestorePromptScore );
   // }
+  
   return (
     <React.Fragment>
-      <LeftMarg>
-        <div onClick = {() => props.whenPromptClicked(props.id)}>
-          <h1>{props.name}</h1>
-          {/* {console.log('prompt posts:')}
-          {console.log(props.posts)} */}
-
-
-          {/* <h1>{JSON.stringify(props.posts)}</h1> */}
-          {/* <h4>{(props.timestamp).toString()}</h4> */}
-          {/* <h4>Score: {props.score}</h4> */}
-        </div>
+      <ul className="faq-list" data-aos="fade-up" data-aos-delay="100">
+        <li>
+          <div data-bs-toggle="collapse" className="collapsed question" href="#faq1" onClick = {() => props.whenPromptClicked(props.id)}>
+            {props.name}
+          </div>
+          {/* <div id="faq1" className="collapse" data-bs-parent=".faq-list">
+          </div> */}
+        </li>
+      </ul>
         {/* <button onClick = {() => whenVoteClicked(props.id, props.score, 1)}>Upvote</button> */}
         {/* <button onClick = {() => whenVoteClicked(props.id, props.score, -1)}>Downvote</button> */}
         {/* <button onClick = {() => props.whenVoteClicked(props.id, 1)}>Upvote in Prompt</button>  */}
         {/* <button onClick = {() => props.whenVoteClicked(props.id, -1)}>Down vote in prompt</button>  */}
-      </LeftMarg>
-      <hr/>
     </React.Fragment>
   );
 }
