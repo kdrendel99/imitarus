@@ -19,13 +19,13 @@ function App(){
         <Header />
         {/* <Switch> */}
           {/* <Route path="/signin"> */}
-            <Signin />
+            {/* <Signin /> */}
           {/* </Route> */}
           {/* <Route path="/signup"> */}
             {/* <Signup /> */}
           {/* </Route> */}
           {/* <Route path ="/"> */}
-            {/* <Main /> */}
+            <Main />
           {/* </Route> */}
         {/* </Switch> */}
         {/* <Footer /> */}

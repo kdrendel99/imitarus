@@ -143,8 +143,6 @@ class Main extends React.Component{
     return (
       <React.Fragment>
         {currentlyVisibleState}
-        <hr/>
-        {/* <button onClick={this.handleClick}>{buttonText}</button> */}
       </React.Fragment>
     );
   }
