@@ -106,7 +106,7 @@ function Header(props){
             onClick = {() => setDropdown(!dropdown)}></i>
           </nav> */}
         </div> 
-        <button className="btn btn-success" onClick={() => toggleLoginForm()}>Sign in</button>
+        <button className="login-btn" onClick={() => toggleLoginForm()}>sign in</button>
       </header>  
     </React.Fragment>
   );

@@ -22,10 +22,10 @@ function App(){
             {/* <Signin /> */}
           {/* </Route> */}
           {/* <Route path="/signup"> */}
-            {/* <Signup /> */}
+            <Signup />
           {/* </Route> */}
           {/* <Route path ="/"> */}
-            <Main />
+            {/* <Main /> */}
           {/* </Route> */}
         {/* </Switch> */}
         {/* <Footer /> */}

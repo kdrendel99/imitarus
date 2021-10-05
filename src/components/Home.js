@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { useFirestoreConnect, useFirestore, isLoaded } from 'react-redux-firebase'
 // import { useFirestore } from 'react-redux-firebase';
 import david from '../images/david2.png';
+import statues from '../images/greek-statues.jpg';
 
 
 
@@ -37,22 +38,20 @@ function Home(props){
     return (
       <React.Fragment>
         {/* GREY BACKGROUND */}
-        <section id="hero" className="d-flex align-items-center">
+        {/* <section id="hero" className="d-flex align-items-center">
           <div className="container">
             <div className="row gy-4">
               <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
                 <h1>Imitarus</h1>
                 <h2>An artificial intelligence-driven photo sharing app</h2>
-                {/* <div>
-                  <a href="#about" className="btn-get-started scrollto">Get Started</a>
-                </div> */}
+
               </div>
               <div className="col-lg-6 order-1 order-lg-2 hero-img">
                 <img src="../images/hero-img.svg" className="img-fluid animated" alt=""/>
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* <section id="hero" className="d-flex align-items-center">
           <div className="container">
@@ -71,15 +70,34 @@ function Home(props){
           </div>
         </section> */}
 
+      <section id="hero" className="d-flex align-items-center">
+          <div className="container">
+            <div className="row gy-4">
+              <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+              {/* <div className="container-fluid animated"> */}
+                <h1>Imitarus</h1>
+                <h2>An artificial intelligence-driven digital art gallery.</h2>
+                <div>
+                  <a href="#faq" className="btn-get-started scrollto">Get Started</a>
+                </div>
+              {/* </div> */}
+              </div>
+              {/* <div className="col-lg-6 order-1 order-lg-2 hero-img">
+                <img src={david} className="img-fluid animated" alt=""/>
+              </div> */}
+            </div>
+          </div>
+        </section>
+
 
           <section id="faq" className="faq section-bg">
             <div className="padding"/>
             <div className="container" data-aos="fade-up">
 
-            {/* <div className="section-title">
-            <h2>note</h2>
-            <p>Lorem Ipsum</p>
-            </div> */}
+            <div className="section-title">
+              <h2>note</h2>
+              <p>Lorem Ipsum</p>
+            </div>
             {prompts.map((prompt) => {
               return <Prompt
                 whenPromptClicked = { props.onPromptSelection }
