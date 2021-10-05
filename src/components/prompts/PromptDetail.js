@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Post from './../posts/Post'
+import SignIn from "../users/SignIn";
 import PropTypes from "prop-types";
 import 'firebase/firestore';
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
@@ -18,10 +19,11 @@ function PromptDetail(props){
   const isotope = React.useRef()
   const firestore = useFirestore();
   const { prompt, onClickingDelete, onClickingNewPost } = props;
-  // const [newPostForm, setNewPostForm] = useState(false);
+
   const [selectedPrompt, setSelectedPrompt] = useState({...prompt});
   const [currPromptId, setCurrPromptId] = useState(prompt.id);
   const [promptPosts, setPromptPosts] = useState([]);
+
 
 
   useEffect(() => {
@@ -58,6 +60,22 @@ function PromptDetail(props){
       }
     getAll();
   }, [currPromptId])
+
+  const onImageLike = () => {
+    if (props.auth.currentUser != null) {
+      console.log('hello world!');
+    } 
+    return (
+      <React.Fragment>
+        <h1>You must be signed in to access the discussion board.</h1>
+      </React.Fragment>
+    )
+  }
+
+
+
+
+
 
     const useFocus = () => {
       const containerRef = useRef(null)
@@ -96,38 +114,37 @@ function PromptDetail(props){
     }
   return (
     <React.Fragment>
-
       <section id="team" class="team">
         <div className="padding"/>
         <div class="container" 
-        ref={containerLoaded} onLoad={setContainerLoaded}
-        >
-        <div class="prompt-details-heading" data-aos="fade-up">
+          ref={containerLoaded} onLoad={setContainerLoaded}
+          >
+          <div class="prompt-details-heading" data-aos="fade-up">
           <h2>{prompt.name}</h2>
           <p>{prompt.timestamp}</p>
-        </div>
-        {/* <p>{prompt.timestamp}</p> */}
-        <div className="row">
-        <Masonry
-          breakpointsCols={breakpoints}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-          >
+          </div>
+          <div className="row">
+            <Masonry
+              breakpointsCols={breakpoints}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
+              >
 
-          {promptPosts.map((post) =>
-            <Post
-              whenPostClicked = { props.onPostSelection }
-              imageRef = {post.imageRef}
-              promptId = {post.promptId}
-              score = {post.score}
-              timestamp = {post.timestamp}
-              userId = {post.userId}
-              id={post.id}
-              key={post.id}
-            />
-          )}
-        </Masonry>
-        </div>
+              {promptPosts.map((post) =>
+                <Post
+                  whenPostClicked = { props.onPostSelection }
+                  handleUserLikedPhoto = {onImageLike}
+                  imageRef = {post.imageRef}
+                  promptId = {post.promptId}
+                  score = {post.score}
+                  timestamp = {post.timestamp}
+                  userId = {post.userId}
+                  id={post.id}
+                  key={post.id}
+                />
+              )}
+            </Masonry>
+          </div>
         </div>
       </section>
 
@@ -139,7 +156,6 @@ function PromptDetail(props){
     <button onClick={() => props.returnHome()}>Return to prompt list</button>
   </React.Fragment>
   )
-// }
 }
 
 PromptDetail.propTypes = {

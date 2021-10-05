@@ -9,6 +9,16 @@ function Header(props){
   const [dropdown, setDropdown] = React.useState(false);
   const [navbarAnimations, setAnimations] = React.useState(true);
   const [navbarMobile, setNavbarMobile] = React.useState(dropdown)
+
+  const toggleLoginForm = () => {
+    console.log('header sign in button clicked');
+    const { dispatch } = props;
+    const action = {
+      type: c.TOGGLE_LOGIN_FORM
+    }
+    dispatch(action);
+  }
+
   //prevent dropdown from initially changing to true
   // const [dropdownInitial, setDropdownInitial] = React.useState(false)
 
@@ -52,6 +62,7 @@ function Header(props){
   //   }
   // }, [dropdown])
 
+
   const resetSelected = () => {
     const { dispatch } = this.props;
     const action = {
@@ -72,7 +83,6 @@ function Header(props){
     }
     dispatch(action);
   }
-
 
 
   
@@ -96,6 +106,7 @@ function Header(props){
             onClick = {() => setDropdown(!dropdown)}></i>
           </nav> */}
         </div> 
+        <button className="btn btn-success" onClick={() => toggleLoginForm()}>Sign in</button>
       </header>  
     </React.Fragment>
   );
@@ -104,6 +115,7 @@ function Header(props){
 const mapStateToProps = state => {
   return {
     selectedPrompt: state.selectedPrompt.selectedPrompt,
+    showLoginForm: state.showLoginForm
   }
 }
 

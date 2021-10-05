@@ -1,3 +1,252 @@
+.real_login_form * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  max-height: 80%
+}
+
+.real_login_form .row-login{
+  padding-left: 20%;
+}
+
+.real_login_form section{
+  align-items: center;
+  overflow:visible;
+}
+
+.real_login_form .img {
+  overflow:hidden;
+}
+
+.real_login_form * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* overflow: hidden; */
+}
+
+.real_login_form .test{
+  background-image: url(./images/david2.jpeg);
+  background-position:center;
+  background-size:cover;
+}
+
+.real_login_form .row {
+  max-width:70%;
+  border-radius: 30px;
+  box-shadow: 12px 12px 22px grey;
+}
+
+
+.real_login_form img{
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.btn1 {
+  border:none;
+  outline:none;
+  height: 50px;
+  width: 100%;
+  background-color:black;
+  color:white;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.btn:hover{
+  background-color: white;
+  border: 1px solid;
+  color: black;
+}
+
+.card {
+  align-items: center;
+  width: 70%;
+  max-height: 80%;
+}
+
+.login-form{
+  background-color: red;
+}
+
+/*=== 2. Anchor Link ===*/
+
+a {
+  color: #aaaaaa;
+  transition: all ease-in-out 200ms;
+}
+a:hover {
+  color: #333333;
+  text-decoration: none;
+}
+/*=== 3. Text Outside the Box ===*/
+.etc-login-form {
+  color: #919191;
+  padding: 10px 20px;
+}
+.etc-login-form p {
+  margin-bottom: 5px;
+}
+/*=== 4. Main Form ===*/
+.login-form-1 {
+  max-width: 300px;
+  border-radius: 5px;
+  display: inline-block;
+}
+.main-login-form {
+  position: relative;
+}
+.login-form-1 .form-control {
+  border: 0;
+  box-shadow: 0 0 0;
+  border-radius: 0;
+  background: transparent;
+  color: #555555;
+  padding: 7px 0;
+  font-weight: bold;
+  height:auto;
+}
+.login-form-1 .form-control::-webkit-input-placeholder {
+  color: #999999;
+}
+.login-form-1 .form-control:-moz-placeholder,
+.login-form-1 .form-control::-moz-placeholder,
+.login-form-1 .form-control:-ms-input-placeholder {
+  color: #999999;
+}
+.login-form-1 .form-group {
+  margin-bottom: 0;
+  border-bottom: 2px solid #efefef;
+  padding-right: 20px;
+  position: relative;
+}
+.login-form-1 .form-group:last-child {
+  border-bottom: 0;
+}
+.login-group {
+  background: #ffffff;
+  color: #999999;
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+.login-group-checkbox {
+  padding: 5px 0;
+}
+/*=== 5. Login Button ===*/
+.login-form-1 .login-button {
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  background: #ffffff;
+  color: #999999;
+  padding: 11px 0;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  border: 5px solid #efefef;
+  border-radius: 50%;
+  transition: all ease-in-out 500ms;
+}
+.login-form-1 .login-button:hover {
+  color: #555555;
+  transform: rotate(450deg);
+}
+.login-form-1 .login-button.clicked {
+  color: #555555;
+}
+.login-form-1 .login-button.clicked:hover {
+  transform: none;
+}
+.login-form-1 .login-button.clicked.success {
+  color: #2ecc71;
+}
+.login-form-1 .login-button.clicked.error {
+  color: #e74c3c;
+}
+/*=== 6. Form Invalid ===*/
+label.form-invalid {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+  display: block;
+  margin-top: -25px;
+  padding: 7px 9px;
+  background: #777777;
+  color: #ffffff;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 11px;
+}
+label.form-invalid:after {
+  top: 100%;
+  right: 10px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: transparent;
+  border-top-color: #777777;
+  border-width: 6px;
+}
+/*=== 7. Form - Main Message ===*/
+.login-form-main-message {
+  background: #ffffff;
+  color: #999999;
+  border-left: 3px solid transparent;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  height: 0;
+  padding: 0 20px 0 17px;
+  opacity: 0;
+  transition: all ease-in-out 200ms;
+}
+.login-form-main-message.show {
+  height: auto;
+  opacity: 1;
+  padding: 10px 20px 10px 17px;
+}
+.login-form-main-message.success {
+  border-left-color: #2ecc71;
+}
+.login-form-main-message.error {
+  border-left-color: #e74c3c;
+}
+
+
+/* hover style just for information */
+label:hover:before {
+  border: 1px solid #f6f6f6 !important;
+}
+/*=== 9. Misc ===*/
+.login-word {
+  padding: 15px 0;
+  font-size: 25px;
+  color: #aaaaaa;
+  font-weight: bold;
+  font-family: "Athelas";
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.nopadding img {
+  height: 100%vh;
+}
+
+
+
+
+
+
+
+
+
+
 .my-masonry-grid {
   /* Not needed if autoprefixing */
   display: -webkit-box; 
@@ -26,6 +275,7 @@
 /* Style your items */
 .my-masonry-grid_column > .member { 
   padding-bottom: 5px;
+  cursor: pointer;
 }
 
 .my-masonry-grid_column img {
@@ -39,6 +289,9 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #212529;
+  margin-bottom: 600px;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -743,6 +996,52 @@ section {
 }
 
 /*--------------------------------------------------------------
+# Sign In
+--------------------------------------------------------------*/
+.text-center{
+  bottom: 0;
+}
+
+
+/* #sign-in{
+  position:relative;
+}
+
+
+.sign-in .sign-in-content {
+  margin-top: 90px;
+} */
+
+/* #sign-in .container-fluid > .row{
+  background: url("./images/david2.jpeg") repeat scroll center center/cover;
+  width: 100%;
+  height: 100vh;
+  background-position: 100% 0;
+  background-size: 50%;
+  border-bottom: 2px solid #fcebe3;
+  margin: 72px 0 -72px 0;
+}  */
+
+/* .sign-in-form{
+  padding: 60px 0;
+  padding-right:0%;
+  margin-right: 0%;
+  overflow: hidden;
+  
+}
+
+.sign-in-form .container-fluid {
+  height: 100vh;
+  width: 100vh;
+  padding-right:0%;
+  margin-right: 0%;
+  right: 100%;
+  
+} */
+
+
+
+/*--------------------------------------------------------------
 # F.A.Q
 --------------------------------------------------------------*/
 .faq {
@@ -865,9 +1164,12 @@ section {
   transition: 0.2s;
 }
 .team .member .member-info-content {
+  color: #ffffff;
+  opacity: 70;
   position: absolute;
-  left: 50px;
-  right: 0;
+  left: 30%;
+  right: 30%;
+  align-items: center;
   bottom: 0;
   transition: bottom 0.4s;
 }
@@ -878,7 +1180,8 @@ section {
   color: #fff;
 }
 .team .member .member-info-content span {
-  font-style: italic;
+  /* font-style: italic; */
+  font-family: "Special Elite";
   display: block;
   font-size: 13px;
   color: #fff;
@@ -888,7 +1191,7 @@ section {
   left: -50px;
   top: 0;
   bottom: 0;
-  width: 50px;
+  width: 25%;
   transition: left ease-in-out 0.3s;
   background: rgba(78, 64, 57, 0.6);
   text-align: center;
@@ -907,7 +1210,7 @@ section {
   margin: 0 2px;
 }
 .team .member:hover .member-info {
-  /* background: linear-gradient(0deg, rgba(17, 22, 43, 0.95) 0%, rgba(17, 22, 43, 0.95) 15%, rgba(255, 255, 255, 0) 100%); */
+  background: linear-gradient(0deg, rgba(17, 22, 43, 0.95) 0%, rgba(17, 22, 43, 0.95) 15%, rgba(255, 255, 255, 0) 100%);
   opacity: 1;
   transition: 0.4s;
 }
@@ -919,6 +1222,47 @@ section {
   left: 0;
   transition: left ease-in-out 0.3s;
 }
+
+
+/* @media (max-width: 991px) {
+  #team {
+    height: calc(100vh - 72px);
+  }
+  #team .animated {
+    -webkit-animation: none;
+    animation: none;
+  }
+  #team .team-img {
+    text-align: center;
+  }
+  #team .team-img img {
+    width: 50%;
+  }
+}
+@media (max-width: 768px) {
+  #team h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  #team h2 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  #team .team-img img {
+    width: 70%;
+  }
+}
+@media (max-width: 575px) {
+  #team .team-img img {
+    width: 80%;
+  }
+}
+@media (max-height: 600px) {
+  #team {
+    height: 120vh;
+  }
+} */
+
 
 /*--------------------------------------------------------------
 # Clients
@@ -1101,6 +1445,8 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
+  bottom: 0;
+  position: fixed;
   background: #fff;
   padding: 0 0 30px 0;
   color: #212529;

@@ -8,6 +8,7 @@ import EditPromptForm from './prompts/EditPromptForm';
 import * as c from './../actions/ActionTypes';
 import { connect } from 'react-redux';
 import { withFirestore, isLoaded } from 'react-redux-firebase';
+import SignIn from './users/SignIn';
 // import { firestore } from 'firebase';
 
 
@@ -19,6 +20,14 @@ class Main extends React.Component{
       editing: false,
       newPostFormVisible: false
     };
+  }
+
+  toggleLoginForm = () => {
+    const { dispatch } = this.props;
+    const action = {
+      type: c.TOGGLE_LOGIN_FORM
+    }
+    dispatch(action);
   }
 
   handleShowNewPostForm = () => {
@@ -95,8 +104,14 @@ class Main extends React.Component{
     //   )
     // } 
     // if ((isLoaded(auth)) && (auth.currentUser != null)){
-  
-      if (this.state.editing) {      
+      if (this.props.showLoginForm){
+        currentlyVisibleState = <SignIn hideLoginForm = {this.toggleLoginForm}
+        />
+
+      }
+
+
+      else if (this.state.editing) {      
         currentlyVisibleState = <EditPromptForm prompt = {this.props.selectedPrompt} onEditPrompt = {this.handleEditingPromptInList} />
         buttonText = "return to prompts list";
       } 
@@ -104,6 +119,7 @@ class Main extends React.Component{
         currentlyVisibleState = <NewPostForm
         prompt = {this.props.selectedPrompt}
         returnHome = {this.handleShowNewPostForm}
+        auth = {this.props.firebase.auth()}
         />
       }
       
@@ -114,10 +130,12 @@ class Main extends React.Component{
         onClickingEdit={this.handleEditClick} 
         onClickingNewPost = {this.handleShowNewPostForm}
         returnHome = {this.handleClick}
+        auth = {this.props.firebase.auth()}
         />
       }
       else {
         currentlyVisibleState = <Home onPromptSelection={this.handleChangingSelectedPrompt}
+        auth = {this.props.firebase.auth()}
         />
         buttonText = null;
       }
@@ -139,6 +157,7 @@ class Main extends React.Component{
 const mapStateToProps = state => {
   return {
     selectedPrompt: state.selectedPrompt.selectedPrompt,
+    showLoginForm: state.showLoginForm
   }
 }
 

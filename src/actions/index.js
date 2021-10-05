@@ -1,6 +1,8 @@
 import * as c from './ActionTypes';
 //ACTION CREATORS
 
+export const 
+
 export const deletePost = id => ({
   type: c.DELETE_POST,
   id

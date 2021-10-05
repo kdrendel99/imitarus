@@ -11,7 +11,6 @@ import david from '../images/david2.png';
 function Home(props){
   // const { prompt } = props;
 
-
   const firestore = useFirestore();
 
   useFirestoreConnect([
@@ -37,7 +36,6 @@ function Home(props){
   if (isLoaded(prompts)) {
     return (
       <React.Fragment>
-
         {/* GREY BACKGROUND */}
         <section id="hero" className="d-flex align-items-center">
           <div className="container">
@@ -74,28 +72,27 @@ function Home(props){
         </section> */}
 
 
-      <section id="faq" className="faq section-bg">
-        <div className="padding">
-      <div className="container" data-aos="fade-up">
+          <section id="faq" className="faq section-bg">
+            <div className="padding"/>
+            <div className="container" data-aos="fade-up">
 
-        {/* <div className="section-title">
-          <h2>note</h2>
-          <p>Lorem Ipsum</p>
-        </div> */}
-        {prompts.map((prompt) => {
-          return <Prompt
-            whenPromptClicked = { props.onPromptSelection }
-            // whenVoteClicked = { props.onVoteClick }
-            name={prompt.name}
-            timestamp={prompt.timestamp}
-            posts={prompt.posts}
-            id={prompt.id}
-            key={prompt.id}/>
-        })}
-
-      </div>
-      </div>
-      </section>
+            {/* <div className="section-title">
+            <h2>note</h2>
+            <p>Lorem Ipsum</p>
+            </div> */}
+            {prompts.map((prompt) => {
+              return <Prompt
+                whenPromptClicked = { props.onPromptSelection }
+                // whenVoteClicked = { props.onVoteClick }
+                name={prompt.name}
+                timestamp={prompt.timestamp}
+                posts={prompt.posts}
+                id={prompt.id}
+                key={prompt.id}
+              />
+            })}
+            </div>
+          </section>
         <button onClick={() => newPrompt()}>New random prompt</button>
       </React.Fragment>
     );
