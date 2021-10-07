@@ -72,7 +72,6 @@ function PromptDetail(props){
         snapshot.forEach((post) => {
           const data = post.data()
           const postObj = data.postId;
-          console.log(data);
           likesArr.push(postObj);
         })
         setUserLikes(likesArr);
@@ -108,55 +107,14 @@ function PromptDetail(props){
       // })
       for (let i = 0; i < promptPosts.length; i++){
         let curr = promptPosts[i];
-        console.log(curr.currUserLiked)
         if(userLikes.includes(curr.postId)){
           curr.currUserLiked = true;
-          console.log(curr.currUserLiked)
+          // console.log(curr.postId)
         }
       }
     }
     createUserInitialLikes();
   }, [userLikes])
-
-
-
-
-  
-
-  // useEffect(() => {
-  //   console.log(userLikes)
-  //   if(!currentUser){
-  //     console.log('not signed in')
-  //   } 
-  //   else {
-  //     console.log('2');
-  //     async function getUserLikes(){
-  //       const likesArr = [];
-  //       const snapshot = await firestore.collection('likes').where('postId', 'in', [userLikes]).get();
-  
-  //       // ^^ see above .where('postId', 'in', [promptPosts]).where('userId', '==', currentUser.uid).get();
-
-  //       if(snapshot.empty){
-  //         console.log('no matching docs');
-  //         return;
-  //       }
-  //       snapshot.forEach((post) => {
-  //         console.log(post);
-  //         const data = post.data()
-  //         const postObj = {
-  //           postId: data.id,
-  //           userId: data.id
-  //         }
-  //         likesArr.push(postObj);
-  //       })
-  //       // setPromptPosts(postArr);
-  //       console.log(likesArr);
-  //       }
-  //     getUserLikes();
-  //   }
-  // }, [userLikes])
-
-
 
 
 
@@ -207,7 +165,6 @@ function PromptDetail(props){
           <h2>{prompt.name}</h2>
           <p>{prompt.timestamp}</p>
           </div>
-          {/* <button onClick={() => logUser()}>check user</button> */}
           <div className="row">
             <Masonry
               breakpointsCols={breakpoints}
