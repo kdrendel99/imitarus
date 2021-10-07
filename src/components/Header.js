@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as c from './../actions/ActionTypes';
 import PropTypes from "prop-types";
+import { useAuth } from './contexts/AuthContext';
+import { Link, useHistory } from 'react-router-dom'
+import userEvent from '@testing-library/user-event';
 // import navAnimations from '../navbar/navbar';
 // import './../navbar/navbar.css';
 
@@ -9,6 +12,22 @@ function Header(props){
   const [dropdown, setDropdown] = React.useState(false);
   const [navbarAnimations, setAnimations] = React.useState(true);
   const [navbarMobile, setNavbarMobile] = React.useState(dropdown)
+  const [error, setError] = useState('')
+  const {currentUser, logout} = useAuth();
+  const history = useHistory()
+
+
+  async function handleLogout() {
+    setError('')
+
+    try {
+      await logout()
+      history.push("/")
+    } catch {
+      setError('Failed to log out')
+    }
+  }
+
 
   const toggleLoginForm = () => {
     const { dispatch } = props;
@@ -98,25 +117,34 @@ function Header(props){
   return (
     {dropdown},
     <React.Fragment>
+      {error && alert(error)}
       <header id="header" className="fixed-top d-flex align-items-center">
         <div className="container d-flex align-items-center justify-content-between">
 
           <h1 className="logo"><h1 className="text-light"><a href="index.html"><span onClick={() => handleClick()}>IMITARUS</span></a></h1></h1>
-          {/* <nav id="navbar" className="navbar" >
-            <ul>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto active" href="#hero">Home</a></li>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#about">About</a></li>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#journal">Blog</a></li>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#contact">Contact</a></li>
-            </ul>
-            <i className="bi bi-list mobile-nav-toggle" 
-            ref={dropdownLoaded} onLoad={setDropdownLoaded} 
-            onClick = {() => setDropdown(!dropdown)}></i>
-          </nav> */}
         </div> 
-        <button className="login-btn" onClick={() => toggleSignupForm()}>register</button>
-        <button className="login-btn" onClick={() => toggleLoginForm()}>sign in</button>
+
+        <Link to="/update-profile" className="btn btn-primary">
+          Update profile
+        </Link>
+
+        {/* {currentUser.email === null? null : currentUser.email} */}
+        {/* <p> Email: {currentUser.email} </p> */}
+
+        <button className="login-btn" variant="link"
+        onClick={() => {handleLogout()}} 
+        >Log out</button>
+
+        <Link to="/signup">register</Link>
+        <Link to="/login">Log In</Link>
+
+        {/* <button className="login-btn" 
+        onClick={() => toggleSignupForm()}
+        >register</button>
+
+        <button className="login-btn" 
+        onClick={() => toggleLoginForm()}
+        >sign in</button> */}
       </header>  
     </React.Fragment>
   );

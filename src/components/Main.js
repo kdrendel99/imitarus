@@ -118,17 +118,17 @@ class Main extends React.Component{
     // } 
     // if ((isLoaded(auth)) && (auth.currentUser != null)){
 
-      if (this.props.showSignupForm){
-        currentlyVisibleState = <SignUp hideSignupForm = {this.toggleSignupForm}
-        />
-      }
+      // if (this.props.showSignupForm){
+      //   currentlyVisibleState = <SignUp hideSignupForm = {this.toggleSignupForm}
+      //   />
+      // }
 
-      else if (this.props.showLoginForm){
-        currentlyVisibleState = <SignIn hideLoginForm = {this.toggleLoginForm}
-        />
-      }
+      // else if (this.props.showLoginForm){
+      //   currentlyVisibleState = <SignIn hideLoginForm = {this.toggleLoginForm}
+      //   />
+      // }
 
-      else if (this.state.editing) {      
+      if (this.state.editing) {      
         currentlyVisibleState = <EditPromptForm prompt = {this.props.selectedPrompt} onEditPrompt = {this.handleEditingPromptInList} />
         buttonText = "return to prompts list";
       } 

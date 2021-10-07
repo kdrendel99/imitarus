@@ -1,42 +1,40 @@
-import React from "react";
+import React, {useState, useRef} from "react";
+import { useAuth } from '../contexts/AuthContext'
+import {Link, useHistory} from 'react-router-dom';
 import firebase from "firebase/app";
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import david from '../../images/david2.jpeg';
 
 const SignIn = (props) => {  
-    // function doSignUp(event) {
-    //   event.preventDefault();
-    //   const email = event.target.email.value;
-    //   const password = event.target.password.value;
-    //   firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
-    //     console.log("successfully signed up!");
-    //   }).catch(function(error) {
-    //     console.log(error.message);
-    //   });
-    // }
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const { login } = useAuth()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false);
+  const history = useHistory()
 
-    // function doSignIn(event) {
-    //   event.preventDefault();
-    //   const email = event.target.signinEmail.value;
-    //   const password = event.target.signinPassword.value;
-    //   firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
-    //     console.log("Successfully signed in!");
-    //   }).catch(function(error) {
-    //     console.log(error.message);
-    //   });
-    // }
+  async function handleSubmit(e){
+    e.preventDefault()
 
-    // function doSignOut() {
-    //   firebase.auth().signOut().then(function() {
-    //     console.log("Successfully signed out!");
-    //   }).catch(function(error) {
-    //     console.log(error.message);
-    //   });
-    // }
+    try {
+      setError('')
+      setLoading(true)
+      await login(emailRef.current.value, passwordRef.current.value)
+      history.push("/")
+    } catch {
+      setError('Failed to sign in')
+    }
 
+    setLoading(false)
+  }
+
+    // const showError = () => {
+    //   return <div className="alert-danger">error</div>
+    // }
 
   return (
     <React.Fragment>
+      {error && alert(error)}
       {/* <div className="flex-background-signin"> */}
       <div className="padding"/>
       <div className="padding"/>
@@ -49,24 +47,30 @@ const SignIn = (props) => {
                 <div className="col px-5 pt-5">
                 <div class="login-word">Login</div>
                   <div class="login-form-1">
-                    <form id="login-form">
+                    <form onSubmit={handleSubmit} id="login-form">
                     <div class="login-form-main-message"></div>
                       <div class="main-login-form">
                         <div class="login-group">
                           <div class="form-group">
                             <label for="lg_username" class="sr-only">Username</label>
-                            <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username"/>
+                            <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username" ref={emailRef}/>
                           </div>
                           <div class="form-group">
                           <label for="lg_password" class="sr-only">Password</label>
-                          <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password"/>
+                          <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password" ref={passwordRef}/>
                           </div>
                         </div>
                       <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
                       </div>
-                      <div class="etc-login-form">
-                      <p>forgot your password? <a href="#">click here</a></p>
-                      <p>new user? <a href="#">create new account</a></p>
+                      <div class="etc-login-form"> 
+                        <Link to="/forgot-password">
+                          forgot your password?
+                        </Link>
+
+                        <Link to='/signup'>
+                          Create an account
+                        </Link>
+
                       </div>
                     </form>
                   </div>
