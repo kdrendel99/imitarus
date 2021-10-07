@@ -5,9 +5,6 @@ import PropTypes from "prop-types";
 import 'firebase/firestore';
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import {useAuth} from '../contexts/AuthContext';
-// import useLikePost from "../posts/useLikePost";
-// import * as firebase from 'firebase';
-// import firebase from '../../firebase';
 
 
 import Masonry from "react-masonry-css";
@@ -27,13 +24,6 @@ function PromptDetail(props){
   const [currPromptId, setCurrPromptId] = useState(prompt.id);
   const [promptPosts, setPromptPosts] = useState([]);
   const [userLikes, setUserLikes] = useState([]);
-
-
-  // useEffect(() => {
-  //   // if (prompt !== null){
-  //   setSelectedPrompt([prompt]);
-  //   // getPostList();
-  // },[prompt]);
 
 
   useEffect(() => {
@@ -60,21 +50,31 @@ function PromptDetail(props){
         postArr.push(postObj);
       })
       setPromptPosts(postArr);
-      // console.log(promptPosts);
+      // const postIdList = postArr.map(post => (
+      //   post.postId
+      // ))
+      // // console.log(postIdList);
+      // setUserLikes(postIdList);
       }
     getAll();
   }, [currPromptId])
 
+
+
+
+
+
   useEffect(() => {
-    console.log('1')
     if(!currentUser){
       console.log('not signed in')
     } 
     else {
-      console.log('2');
       async function getUserLikes(){
         const likesArr = [];
-        const snapshot = await firestore.collection('likes').where('postId', 'in', [promptPosts]).get();
+        // const snapshot = await firestore.collection('likes').get();
+        const snapshot = await firestore.collection('likes').where('userId', '==', currentUser.uid).get();
+
+        
   
         // const snapshot = await likesRef.where('postId', 'in', [promptPosts]).where('userId', '==', currentUser.uid).get();
 
@@ -86,6 +86,8 @@ function PromptDetail(props){
         snapshot.forEach((post) => {
           const data = post.data()
           const postObj = data.postId;
+          console.log(data);
+          
           // {
           //   imageRef: data.imageRef,
           //   promptId: data.promptId,
@@ -100,43 +102,50 @@ function PromptDetail(props){
         console.log(likesArr);
         }
       getUserLikes();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // getUserLikesInPrompt()
-      // const test = async () => {
-      //   console.log('user is signed in!')
-      //   const userLikesArr = await firestore.collection('likes').where('postId', 'in', [promptPosts]).where('userId', '==', currentUser.uid).get();
-      //     console.log('the user likes these posts: ' + userLikesArr)
-      // }
-      // test()
-
-      
-      // .then(() => {
-      //   setUserLikes(userLikesArr)
-        // console.log('the user likes these posts: ' + userLikesArr)
-      // })
     }
   }, [promptPosts])
+
+
+
+
+
+
+
+
+  
+
+  // useEffect(() => {
+  //   console.log(userLikes)
+  //   if(!currentUser){
+  //     console.log('not signed in')
+  //   } 
+  //   else {
+  //     console.log('2');
+  //     async function getUserLikes(){
+  //       const likesArr = [];
+  //       const snapshot = await firestore.collection('likes').where('postId', 'in', [userLikes]).get();
+  
+  //       // ^^ see above .where('postId', 'in', [promptPosts]).where('userId', '==', currentUser.uid).get();
+
+  //       if(snapshot.empty){
+  //         console.log('no matching docs');
+  //         return;
+  //       }
+  //       snapshot.forEach((post) => {
+  //         console.log(post);
+  //         const data = post.data()
+  //         const postObj = {
+  //           postId: data.id,
+  //           userId: data.id
+  //         }
+  //         likesArr.push(postObj);
+  //       })
+  //       // setPromptPosts(postArr);
+  //       console.log(likesArr);
+  //       }
+  //     getUserLikes();
+  //   }
+  // }, [userLikes])
 
 
 
@@ -180,12 +189,12 @@ function PromptDetail(props){
     }
   return (
     <React.Fragment>
-      <section id="team" class="team">
+      <section id="team" className="team">
         <div className="padding"/>
         <div className="container" 
           ref={containerLoaded} onLoad={setContainerLoaded}
           >
-          <div class="prompt-details-heading" data-aos="fade-up">
+          <div className="prompt-details-heading" data-aos="fade-up">
           <h2>{prompt.name}</h2>
           <p>{prompt.timestamp}</p>
           </div>
@@ -207,7 +216,7 @@ function PromptDetail(props){
                   userId = {post.userId}
                   id={post.postId}
                   key={post.postId}
-                  currUserLiked={[userLikes].includes(post.postId)}
+                  // currUserLiked={[userLikes].includes(post.postId)}
                 />
               )}
             </Masonry>

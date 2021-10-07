@@ -9,6 +9,7 @@ function Post(props){
   const [userLikedPost, setUserLikedPost] = useState(false);
   const firestore = useFirestore();
   const {currentUser} = useAuth();
+  const [postId, setPostId] = useState(props.postId);
   // const postRef = firestore.collection('posts').doc(selectedPrompt)
 
   // function whenVoteClicked(id, currScore, vote){
@@ -18,13 +19,10 @@ function Post(props){
   //   firestore.update({collection: 'Posts', doc: id}, firestorePostScore );
   // }
 
-  // useEffect(() => {
-
-  // })
-
   const validateUser = () => {
     if(currentUser){
       console.log('user: ' + currentUser.uid);
+      console.log(currentUser);
       setUserLikedPost(!userLikedPost);
     } 
     else {
@@ -48,7 +46,7 @@ function Post(props){
           <div className="social">
             <i className={userLikedPost ? "bi bi-heart-fill" : "bi bi-heart"} onClick={() => validateUser()}/>
             {/* <i className="bi bi-heart-fill"/> */}
-            <i class="bi bi-save2-fill"></i>
+            <i className="bi bi-save2-fill"></i>
           </div>
           </div>
         </div>
