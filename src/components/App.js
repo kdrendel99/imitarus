@@ -2,8 +2,9 @@ import React from "react";
 import Header from "./Header";
 // import Footer from './Footer';
 import Main from './Main';
-import Signin from "./users/SignIn";
-import Signup from "./users/SignUp";
+import { AuthProvider } from './contexts/AuthContext';
+// import Signin from "./users/SignIn";
+// import Signup from "./users/SignUp";
 // import {storage} from "../firebase"
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import * as firebase from 'firebase';
@@ -13,6 +14,7 @@ import Signup from "./users/SignUp";
 function App(){
   return (
     <React.Fragment>
+      <AuthProvider>
       <React.StrictMode>
         {/* <GlobalStyle /> */}
         {/* <Router> */}
@@ -22,15 +24,16 @@ function App(){
             {/* <Signin /> */}
           {/* </Route> */}
           {/* <Route path="/signup"> */}
-            <Signup />
+            {/* <Signup /> */}
           {/* </Route> */}
           {/* <Route path ="/"> */}
-            {/* <Main /> */}
+            <Main />
           {/* </Route> */}
         {/* </Switch> */}
         {/* <Footer /> */}
       {/* </Router> */}
       </React.StrictMode>
+      </AuthProvider>
     </React.Fragment>
   );
 }

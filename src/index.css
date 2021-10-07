@@ -1029,6 +1029,9 @@ label.form-invalid:after {
 --------------------------------------------------------------*/
 .sign_up_bg {
   background-color: #dcd7d4;
+  /* background-color: #a7bab4; */
+  /* background-color: #ebf0f3; */
+  /* background-color: #e0e2e7; */
 }
 .sign_up_bg .robot_art {
   max-width: 40%;

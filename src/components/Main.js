@@ -8,6 +8,7 @@ import EditPromptForm from './prompts/EditPromptForm';
 import * as c from './../actions/ActionTypes';
 import { connect } from 'react-redux';
 import { withFirestore, isLoaded } from 'react-redux-firebase';
+import SignUp from './users/SignUp';
 import SignIn from './users/SignIn';
 // import { firestore } from 'firebase';
 
@@ -20,6 +21,18 @@ class Main extends React.Component{
       editing: false,
       newPostFormVisible: false
     };
+  }
+
+  componentDidUpdate(){
+    console.log(this.props.showSignupForm)
+  }
+
+  toggleSignupForm = () => {
+    const { dispatch } = this.props;
+    const action = {
+      type: c.TOGGLE_SIGNUP_FORM
+    }
+    dispatch(action);
   }
 
   toggleLoginForm = () => {
@@ -104,12 +117,16 @@ class Main extends React.Component{
     //   )
     // } 
     // if ((isLoaded(auth)) && (auth.currentUser != null)){
-      if (this.props.showLoginForm){
-        currentlyVisibleState = <SignIn hideLoginForm = {this.toggleLoginForm}
-        />
 
+      if (this.props.showSignupForm){
+        currentlyVisibleState = <SignUp hideSignupForm = {this.toggleSignupForm}
+        />
       }
 
+      else if (this.props.showLoginForm){
+        currentlyVisibleState = <SignIn hideLoginForm = {this.toggleLoginForm}
+        />
+      }
 
       else if (this.state.editing) {      
         currentlyVisibleState = <EditPromptForm prompt = {this.props.selectedPrompt} onEditPrompt = {this.handleEditingPromptInList} />
@@ -152,10 +169,12 @@ class Main extends React.Component{
 //   selectedPrompt: PropTypes.object
 // };
 
+
 const mapStateToProps = state => {
   return {
     selectedPrompt: state.selectedPrompt.selectedPrompt,
-    showLoginForm: state.showLoginForm
+    showSignupForm: state.showSignupForm,
+    showLoginForm: state.showLoginForm,
   }
 }
 

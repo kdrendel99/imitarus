@@ -11,10 +11,17 @@ function Header(props){
   const [navbarMobile, setNavbarMobile] = React.useState(dropdown)
 
   const toggleLoginForm = () => {
-    console.log('header sign in button clicked');
     const { dispatch } = props;
     const action = {
       type: c.TOGGLE_LOGIN_FORM
+    }
+    dispatch(action);
+  }
+
+  const toggleSignupForm = () => {
+    const { dispatch } = props;
+    const action = {
+      type: c.TOGGLE_SIGNUP_FORM
     }
     dispatch(action);
   }
@@ -72,6 +79,8 @@ function Header(props){
   }
 
   const handleClick = () => {
+    this.toggleLoginForm();
+    this.toggleSignupForm();
     this.clearPrompt();
   }
 
@@ -92,7 +101,7 @@ function Header(props){
       <header id="header" className="fixed-top d-flex align-items-center">
         <div className="container d-flex align-items-center justify-content-between">
 
-          <h1 className="logo"><h1 className="text-light"><a href="index.html"><span>IMITARUS</span></a></h1></h1>
+          <h1 className="logo"><h1 className="text-light"><a href="index.html"><span onClick={() => handleClick()}>IMITARUS</span></a></h1></h1>
           {/* <nav id="navbar" className="navbar" >
             <ul>
                 <li><a onClick = {() => resetSelected()} className="nav-link scrollto active" href="#hero">Home</a></li>
@@ -106,6 +115,7 @@ function Header(props){
             onClick = {() => setDropdown(!dropdown)}></i>
           </nav> */}
         </div> 
+        <button className="login-btn" onClick={() => toggleSignupForm()}>register</button>
         <button className="login-btn" onClick={() => toggleLoginForm()}>sign in</button>
       </header>  
     </React.Fragment>
@@ -115,7 +125,8 @@ function Header(props){
 const mapStateToProps = state => {
   return {
     selectedPrompt: state.selectedPrompt.selectedPrompt,
-    showLoginForm: state.showLoginForm
+    showSignupForm: state.showSignupForm,
+    showLoginForm: state.showLoginForm,
   }
 }
 
