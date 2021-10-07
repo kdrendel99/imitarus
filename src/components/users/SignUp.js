@@ -4,10 +4,11 @@ import React, {useState, useRef} from "react";
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import accountart from '../../images/account_art.png';
 import { Link, useHistory } from 'react-router-dom';
+import { useFirestore } from 'react-redux-firebase';
 
 
 const SignUp = (props) => {  
-  // const nameRef = useRef()
+  const nameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -15,6 +16,8 @@ const SignUp = (props) => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false);
   const history = useHistory()
+
+  const firestore = useFirestore();
 
   async function handleSubmit(e){
     e.preventDefault()
@@ -26,7 +29,16 @@ const SignUp = (props) => {
     try {
       setError('')
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
+      await signup(emailRef.current.value, passwordRef.current.value).then(registeredUser => {
+        firestore.collection('users').add(
+          {
+            uid: registeredUser.user.uid,
+            name: nameRef.current.value,
+            avatar: 'gs://imitarus.appspot.com/default-profile-photo'
+            // likedPosts
+          }
+        )
+      })
       history.push("/")
     } catch {
       setError('Failed to create an account')
@@ -52,11 +64,11 @@ const SignUp = (props) => {
             <h1 className="font-weight-bold py-3">Create an account</h1>
             <h4>Join the community.</h4>
             <form onSubmit={handleSubmit}>
-              {/* <div className="form-row">
+              <div className="form-row">
                 <div className="col-lg-7">
                   <input type="name" placeholder="name" className="form-control my-3 p-2" ref={nameRef} required/>
                 </div>
-              </div> */}
+              </div>
 							<div className="form-row">
                 <div className="col-lg-7">
                   <input type="email" placeholder="Email" name="email" className="form-control my-3 p-2" ref={emailRef} required/>

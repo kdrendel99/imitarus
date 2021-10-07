@@ -7,12 +7,6 @@ function Prompt(props){
   const firestore = useFirestore();
   const [jsonified, setJsonified] = useState(null);
 
-  // function whenVoteClicked(id, currScore, vote){
-  //   const firestorePromptScore = {
-  //     score: currScore + vote
-  //   }
-  //   firestore.update({collection: 'prompts', doc: id}, firestorePromptScore );
-  // }
   
   return (
     <React.Fragment>
@@ -25,10 +19,6 @@ function Prompt(props){
           </div> */}
         </li>
       </ul>
-        {/* <button onClick = {() => whenVoteClicked(props.id, props.score, 1)}>Upvote</button> */}
-        {/* <button onClick = {() => whenVoteClicked(props.id, props.score, -1)}>Downvote</button> */}
-        {/* <button onClick = {() => props.whenVoteClicked(props.id, 1)}>Upvote in Prompt</button>  */}
-        {/* <button onClick = {() => props.whenVoteClicked(props.id, -1)}>Down vote in prompt</button>  */}
     </React.Fragment>
   );
 }

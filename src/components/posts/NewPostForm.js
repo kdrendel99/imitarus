@@ -1,12 +1,7 @@
-// import { doc, updateDoc, arrayUnion } from "../../firebase.firestore";
 import React, { useEffect, useState } from "react";
 import firebase from '../../firebase';
-// import firestore from '../../firebase/firestore';
 import 'firebase/firestore';
-import { useSelector } from 'react-redux'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
-// import { getStorage, ref } from "firebase/storage";
-// import { doc, updateDoc, arrayUnion } from "firestore";
 
 function NewFormPost(props){
   const firestore = useFirestore();
@@ -23,16 +18,6 @@ function NewFormPost(props){
   const [selectedPrompt, setSelectedPrompt] = useState(prompt.id);
   const [userId, setUserId] = useState(null);
 
-
-  // useEffect(() => {
-  //   console.log('prompt id:')
-  //   console.log(selectedPrompt)
-  // },[selectedPrompt]);
-
-  // useEffect(() => {
-  //   console.log('download url: ')
-  //   console.log(downloadUrl)
-  // },[downloadUrl]);
 
   useEffect(() => {
     if(userId && downloadUrl){
@@ -60,7 +45,7 @@ function NewFormPost(props){
         imageRef: downloadUrl,
         userId: userId,
         promptId: selectedPrompt,
-        score: 0,
+        likes: 0,
         timestamp: firestore.FieldValue.serverTimestamp()
       }
     )

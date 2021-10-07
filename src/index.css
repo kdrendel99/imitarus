@@ -1196,13 +1196,13 @@ label.form-invalid:after {
   background: rgba(78, 64, 57, 0.6);
   text-align: center;
 }
-.team .member .social a {
+.team .member .social i {
   transition: color 0.3s;
   display: block;
   color: #fff;
   margin-top: 15px;
 }
-.team .member .social a:hover {
+.team .member .social i:hover {
   color: #5d5f49;
 }
 .team .member .social i {

@@ -4,6 +4,8 @@ import SignIn from "../users/SignIn";
 import PropTypes from "prop-types";
 import 'firebase/firestore';
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import {useAuth} from '../contexts/AuthContext';
+// import useLikePost from "../posts/useLikePost";
 // import * as firebase from 'firebase';
 // import firebase from '../../firebase';
 
@@ -19,18 +21,19 @@ function PromptDetail(props){
   const isotope = React.useRef()
   const firestore = useFirestore();
   const { prompt, onClickingDelete, onClickingNewPost } = props;
+  const {currentUser} = useAuth();
 
   const [selectedPrompt, setSelectedPrompt] = useState({...prompt});
   const [currPromptId, setCurrPromptId] = useState(prompt.id);
   const [promptPosts, setPromptPosts] = useState([]);
+  const [userLikes, setUserLikes] = useState([]);
 
 
-
-  useEffect(() => {
-    // if (prompt !== null){
-    setSelectedPrompt([prompt]);
-    // getPostList();
-  },[prompt]);
+  // useEffect(() => {
+  //   // if (prompt !== null){
+  //   setSelectedPrompt([prompt]);
+  //   // getPostList();
+  // },[prompt]);
 
 
   useEffect(() => {
@@ -49,29 +52,91 @@ function PromptDetail(props){
         const postObj = {
           imageRef: data.imageRef,
           promptId: data.promptId,
-          score: data.score,
+          likes: data.likes,
           timestamp: data.timestamp.toDate().toString(),
-          userId: data.userId
+          userId: data.userId,
+          postId: post.id
         }
         postArr.push(postObj);
       })
       setPromptPosts(postArr);
-      console.log(promptPosts);
+      // console.log(promptPosts);
       }
     getAll();
   }, [currPromptId])
 
-  const onImageLike = () => {
-    if (props.auth.currentUser != null) {
-      console.log('hello world!');
+  useEffect(() => {
+    console.log('1')
+    if(!currentUser){
+      console.log('not signed in')
     } 
-    return (
-      <React.Fragment>
-        <h1>You must be signed in to access the discussion board.</h1>
-      </React.Fragment>
-    )
-  }
+    else {
+      console.log('2');
+      async function getUserLikes(){
+        const likesArr = [];
+        const snapshot = await firestore.collection('likes').where('postId', 'in', [promptPosts]).get();
+  
+        // const snapshot = await likesRef.where('postId', 'in', [promptPosts]).where('userId', '==', currentUser.uid).get();
 
+        
+        if(snapshot.empty){
+          console.log('no matching docs');
+          return;
+        }
+        snapshot.forEach((post) => {
+          const data = post.data()
+          const postObj = data.postId;
+          // {
+          //   imageRef: data.imageRef,
+          //   promptId: data.promptId,
+          //   likes: data.likes,
+          //   timestamp: data.timestamp.toDate().toString(),
+          //   userId: data.userId,
+          //   postId: post.id
+          // }
+          likesArr.push(postObj);
+        })
+        // setPromptPosts(postArr);
+        console.log(likesArr);
+        }
+      getUserLikes();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // getUserLikesInPrompt()
+      // const test = async () => {
+      //   console.log('user is signed in!')
+      //   const userLikesArr = await firestore.collection('likes').where('postId', 'in', [promptPosts]).where('userId', '==', currentUser.uid).get();
+      //     console.log('the user likes these posts: ' + userLikesArr)
+      // }
+      // test()
+
+      
+      // .then(() => {
+      //   setUserLikes(userLikesArr)
+        // console.log('the user likes these posts: ' + userLikesArr)
+      // })
+    }
+  }, [promptPosts])
 
 
 
@@ -87,6 +152,7 @@ function PromptDetail(props){
     const [containerLoaded, setContainerLoaded] = useFocus();
 
     // initialize an Isotope object with configs
+
     useEffect(() => {
         runAnimations();
         let currentlyLoadedContainer = `${containerLoaded.current.className}`;
@@ -116,13 +182,14 @@ function PromptDetail(props){
     <React.Fragment>
       <section id="team" class="team">
         <div className="padding"/>
-        <div class="container" 
+        <div className="container" 
           ref={containerLoaded} onLoad={setContainerLoaded}
           >
           <div class="prompt-details-heading" data-aos="fade-up">
           <h2>{prompt.name}</h2>
           <p>{prompt.timestamp}</p>
           </div>
+          {/* <button onClick={() => logUser()}>check user</button> */}
           <div className="row">
             <Masonry
               breakpointsCols={breakpoints}
@@ -132,15 +199,15 @@ function PromptDetail(props){
 
               {promptPosts.map((post) =>
                 <Post
-                  whenPostClicked = { props.onPostSelection }
-                  handleUserLikedPhoto = {onImageLike}
+                  // whenPostClicked = { props.onPostSelection }
                   imageRef = {post.imageRef}
                   promptId = {post.promptId}
-                  score = {post.score}
+                  likes = {post.likes}
                   timestamp = {post.timestamp}
                   userId = {post.userId}
-                  id={post.id}
-                  key={post.id}
+                  id={post.postId}
+                  key={post.postId}
+                  currUserLiked={[userLikes].includes(post.postId)}
                 />
               )}
             </Masonry>

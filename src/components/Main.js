@@ -23,10 +23,6 @@ class Main extends React.Component{
     };
   }
 
-  componentDidUpdate(){
-    console.log(this.props.showSignupForm)
-  }
-
   toggleSignupForm = () => {
     const { dispatch } = this.props;
     const action = {
