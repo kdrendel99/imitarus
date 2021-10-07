@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 // import styled from 'styled-components';
 import { useFirestore } from 'react-redux-firebase';
-// import useLikePost from "./useLikePost";
 import {useAuth} from '../contexts/AuthContext';
 
 function Post(props){ 
@@ -32,7 +31,6 @@ function Post(props){
   }
   return (
     <React.Fragment>
-      {console.log(props.id)}
       {/* onClick = {() => props.whenPostClicked(props.id)} */}
         <div className="member">
           <img src={props.imageRef} className="img img-responsive" 
@@ -44,7 +42,7 @@ function Post(props){
             <p>{props.likes}</p>
           </div>
           <div className="social">
-            <i className={userLikedPost ? "bi bi-heart-fill" : "bi bi-heart"} onClick={() => validateUser()}/>
+            <i className={props.currUserLiked ? "bi bi-heart-fill" : "bi bi-heart"} onClick={() => validateUser()}/>
             {/* <i className="bi bi-heart-fill"/> */}
             <i className="bi bi-save2-fill"></i>
           </div>

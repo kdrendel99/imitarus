@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Component } from "react";
 import Post from './../posts/Post'
 import SignIn from "../users/SignIn";
 import PropTypes from "prop-types";
@@ -45,23 +45,15 @@ function PromptDetail(props){
           likes: data.likes,
           timestamp: data.timestamp.toDate().toString(),
           userId: data.userId,
-          postId: post.id
+          postId: post.id,
+          currUserLiked: false
         }
         postArr.push(postObj);
       })
       setPromptPosts(postArr);
-      // const postIdList = postArr.map(post => (
-      //   post.postId
-      // ))
-      // // console.log(postIdList);
-      // setUserLikes(postIdList);
       }
     getAll();
   }, [currPromptId])
-
-
-
-
 
 
   useEffect(() => {
@@ -71,14 +63,8 @@ function PromptDetail(props){
     else {
       async function getUserLikes(){
         const likesArr = [];
-        // const snapshot = await firestore.collection('likes').get();
         const snapshot = await firestore.collection('likes').where('userId', '==', currentUser.uid).get();
 
-        
-  
-        // const snapshot = await likesRef.where('postId', 'in', [promptPosts]).where('userId', '==', currentUser.uid).get();
-
-        
         if(snapshot.empty){
           console.log('no matching docs');
           return;
@@ -87,18 +73,9 @@ function PromptDetail(props){
           const data = post.data()
           const postObj = data.postId;
           console.log(data);
-          
-          // {
-          //   imageRef: data.imageRef,
-          //   promptId: data.promptId,
-          //   likes: data.likes,
-          //   timestamp: data.timestamp.toDate().toString(),
-          //   userId: data.userId,
-          //   postId: post.id
-          // }
           likesArr.push(postObj);
         })
-        // setPromptPosts(postArr);
+        setUserLikes(likesArr);
         console.log(likesArr);
         }
       getUserLikes();
@@ -106,8 +83,40 @@ function PromptDetail(props){
   }, [promptPosts])
 
 
+  // 1) take likes array (userLikes) and iterate through it. on each iteration:
+  //     -check current posts array of objects for the id of the current iterator
+  //     -when found, clone the object and update the state of currUserLiked to true. store that state in the top of posts Component to be changed on onClick .
 
+  // PromptPosts: the originals with a default value of false for user liked 
+  // userLikes: an array containing the queried posts that the user has previously liked.
 
+  useEffect(() => {
+    const createUserInitialLikes = () => {
+      const newArr = [];
+      // userLikes.forEach((post) => {
+      //     if ()
+        
+      //   // {
+      //   //   imageRef: data.imageRef,
+      //   //   promptId: data.promptId,
+      //   //   likes: data.likes,
+      //   //   timestamp: data.timestamp.toDate().toString(),
+      //   //   userId: data.userId,
+      //   //   postId: post.id
+      //   // }
+      //   likesArr.push(postObj);
+      // })
+      for (let i = 0; i < promptPosts.length; i++){
+        let curr = promptPosts[i];
+        console.log(curr.currUserLiked)
+        if(userLikes.includes(curr.postId)){
+          curr.currUserLiked = true;
+          console.log(curr.currUserLiked)
+        }
+      }
+    }
+    createUserInitialLikes();
+  }, [userLikes])
 
 
 
@@ -216,7 +225,7 @@ function PromptDetail(props){
                   userId = {post.userId}
                   id={post.postId}
                   key={post.postId}
-                  // currUserLiked={[userLikes].includes(post.postId)}
+                  currUserLiked={post.currUserLiked}
                 />
               )}
             </Masonry>
