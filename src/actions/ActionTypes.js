@@ -6,3 +6,5 @@ export const TOGGLE_SIGNUP_FORM = 'TOGGLE_SIGNUP_FORM'
 
 export const DELETE_POST = 'DELETE_POST';
 export const UPDATE_SCORE = 'UPDATE_SCORE';
+
+export const GET_USER_LIKES = 'GET_USER_LIKES'

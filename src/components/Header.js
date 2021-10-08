@@ -1,16 +1,21 @@
 import { connect } from 'react-redux';
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useAuth } from './contexts/AuthContext';
+import { Link, useHistory } from 'react-router-dom'
 import * as c from './../actions/ActionTypes';
 import PropTypes from "prop-types";
 import navAnimations from './navbar/navbar';
 import './navbar/navbar.css';
 
 function Header(props){
+  const [error, setError] = useState('')
+  const {currentUser, logout} = useAuth();
+  const history = useHistory()
   const [dropdown, setDropdown] = React.useState(false);
   const [navbarAnimations, setAnimations] = React.useState(true);
-  const [navbarMobile, setNavbarMobile] = React.useState(dropdown)
   //prevent dropdown from initially changing to true
   const [dropdownInitial, setDropdownInitial] = React.useState(false)
+  const [user, setUser] = useState(currentUser);
 
   const useFocus = () => {
     const dropdownRef = useRef(null)
@@ -29,6 +34,10 @@ function Header(props){
       }
     }
   })
+
+  // useEffect(() => {
+  //   console.log(user)
+  // }, [user])
 
   const toggleDropdown = () => {
     let currentlyLoadedDropdown = `${dropdownLoaded.current.className}`;
@@ -60,9 +69,16 @@ function Header(props){
     dispatch(action);
   }
 
+  async function handleLogout() {
+    setError('')
 
-
-
+    try {
+      await logout()
+      history.push("/")
+    } catch {
+      setError('Failed to log out')
+    }
+  }
 
   
   return (
@@ -75,11 +91,22 @@ function Header(props){
           {/* <h1 className="logo"><a href="index.html">Karlson Drendel</a></h1> */}
           <nav id="navbar" className="navbar" >
             <ul>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto active" href="#hero">Home</a></li>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#about">About</a></li>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#journal">Blog</a></li>
-                <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#contact">Contact</a></li>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Register</Link>
+                </li>
+                <li>
+                  <Link to="/login">Log in</Link>
+                </li>
+                <li>
+                  <Link to="/update-profile">PROF</Link>
+                </li>
+
+                <li> <a onClick = {() => handleLogout()} className="login-btn">Log out</a></li>
+
+                {/* <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#contact">Contact</a></li> */}
             </ul>
             <i className="bi bi-list mobile-nav-toggle" 
             ref={dropdownLoaded} onLoad={setDropdownLoaded} 

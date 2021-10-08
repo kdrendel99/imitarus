@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Prompt from "./prompts/Prompt";
 import PropTypes from "prop-types";
 import { useSelector } from 'react-redux'
+import {useAuth} from './contexts/AuthContext';
 import { useFirestoreConnect, useFirestore, isLoaded } from 'react-redux-firebase'
 // import { useFirestore } from 'react-redux-firebase';
 import david from '../images/david2.png';
@@ -13,6 +14,7 @@ function Home(props){
   // const { prompt } = props;
 
   const firestore = useFirestore();
+  const {currentUser} = useAuth();
 
   useFirestoreConnect([
     { collection: 'prompts' }
@@ -31,6 +33,10 @@ function Home(props){
         }
       )
   }
+
+  useEffect(() => {
+    console.log('the current user is: ' + currentUser.email);
+  })
 
 
 
@@ -75,8 +81,8 @@ function Home(props){
             <div className="row gy-4">
               <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
               {/* <div className="container-fluid animated"> */}
-                <h1 style={{color:"#a5a7a8"}}>Welcome</h1>
-                <h2 style={{color:"#a5a7a8"}}>An artificial intelligence-driven digital art gallery.</h2>
+                <h1>Imitarus</h1>
+                <h2>An artificial intelligence-driven digital art gallery.</h2>
                 <div>
                   <a href="#faq" className="btn-get-started scrollto">Get Started</a>
                 </div>

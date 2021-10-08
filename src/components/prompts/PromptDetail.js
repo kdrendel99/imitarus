@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, Component } from "react";
 import Post from './../posts/Post'
-import SignIn from "../users/SignIn";
 import PropTypes from "prop-types";
 import 'firebase/firestore';
-import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import { withFirestore, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import * as c from '../../actions/ActionTypes';
+import { connect } from 'react-redux';
 import {useAuth} from '../contexts/AuthContext';
 
 
@@ -17,20 +18,58 @@ import imagesLoaded from 'imagesloaded';
 function PromptDetail(props){
   const isotope = React.useRef()
   const firestore = useFirestore();
-  const { prompt, onClickingDelete, onClickingNewPost } = props;
+  const { prompt, onClickingDelete, onClickingNewPost, userLikes } = props;
   const {currentUser} = useAuth();
-
-  const [selectedPrompt, setSelectedPrompt] = useState({...prompt});
+  const [likedPosts, setLikedPosts] = useState(userLikes)
   const [currPromptId, setCurrPromptId] = useState(prompt.id);
   const [promptPosts, setPromptPosts] = useState([]);
-  const [userLikes, setUserLikes] = useState([]);
 
+  const dispatchUserLikes = (likesArr) => {
+    const { dispatch } = props;
+    const action = {
+      type: c.GET_USER_LIKES,
+      userLikes: likesArr
+    }
+    dispatch(action);
+  }
+
+  const handleGetUserLikes = async () => {
+    if (!currentUser){
+      return
+    }
+    const likedPostArr = []
+    const snapshot = await firestore.collection('likes').where('userId', '==', currentUser.uid).get()
+      
+    if(snapshot.empty){
+      return;
+    } else {
+      snapshot.forEach((likedPost) => {
+        const data = likedPost.data()
+        const likeRef = data.postId.toString()
+        likedPostArr.push(likeRef)
+      })
+      dispatchUserLikes(likedPostArr) 
+      }
+    } 
 
   useEffect(() => {
-    async function getAll(){
+    handleGetUserLikes()
+  },[])
+
+  useEffect(() => {
+    console.log(likedPosts)
+  }, [])
+
+
+
+
+//get all posts for this prompt
+  useEffect(() => {
+    async function getAllPosts(){
+      console.log('get all posts')
       const postArr = [];
       const postsRef = firestore.collection('posts');
-
+  
       const snapshot = await postsRef.where('promptId', '==', currPromptId).get();
       
       if(snapshot.empty){
@@ -46,77 +85,14 @@ function PromptDetail(props){
           timestamp: data.timestamp.toDate().toString(),
           userId: data.userId,
           postId: post.id,
-          currUserLiked: false
+          // currUserLiked: false
         }
-        postArr.push(postObj);
-      })
-      setPromptPosts(postArr);
-      }
-    getAll();
-  }, [currPromptId])
-
-
-  useEffect(() => {
-    if(!currentUser){
-      console.log('not signed in')
-    } 
-    else {
-      async function getUserLikes(){
-        const likesArr = [];
-        const snapshot = await firestore.collection('likes').where('userId', '==', currentUser.uid).get();
-
-        if(snapshot.empty){
-          console.log('no matching docs');
-          return;
-        }
-        snapshot.forEach((post) => {
-          const data = post.data()
-          const postObj = data.postId;
-          likesArr.push(postObj);
+          postArr.push(postObj);
         })
-        setUserLikes(likesArr);
-        console.log(likesArr);
-        }
-      getUserLikes();
+      setPromptPosts(postArr);
     }
-  }, [promptPosts])
-
-
-  // 1) take likes array (userLikes) and iterate through it. on each iteration:
-  //     -check current posts array of objects for the id of the current iterator
-  //     -when found, clone the object and update the state of currUserLiked to true. store that state in the top of posts Component to be changed on onClick .
-
-  // PromptPosts: the originals with a default value of false for user liked 
-  // userLikes: an array containing the queried posts that the user has previously liked.
-
-  useEffect(() => {
-    const createUserInitialLikes = () => {
-      const newArr = [];
-      // userLikes.forEach((post) => {
-      //     if ()
-        
-      //   // {
-      //   //   imageRef: data.imageRef,
-      //   //   promptId: data.promptId,
-      //   //   likes: data.likes,
-      //   //   timestamp: data.timestamp.toDate().toString(),
-      //   //   userId: data.userId,
-      //   //   postId: post.id
-      //   // }
-      //   likesArr.push(postObj);
-      // })
-      for (let i = 0; i < promptPosts.length; i++){
-        let curr = promptPosts[i];
-        if(userLikes.includes(curr.postId)){
-          curr.currUserLiked = true;
-          // console.log(curr.postId)
-        }
-      }
-    }
-    createUserInitialLikes();
-  }, [userLikes])
-
-
+    getAllPosts();
+  }, [currPromptId])
 
     const useFocus = () => {
       const containerRef = useRef(null)
@@ -171,7 +147,7 @@ function PromptDetail(props){
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column"
               >
-
+                {/* {console.log('liked posts: ' + likedPosts)} */}
               {promptPosts.map((post) =>
                 <Post
                   // whenPostClicked = { props.onPostSelection }
@@ -182,7 +158,7 @@ function PromptDetail(props){
                   userId = {post.userId}
                   id={post.postId}
                   key={post.postId}
-                  currUserLiked={post.currUserLiked}
+                  // userLikedList={likedPosts}
                 />
               )}
             </Masonry>
@@ -200,10 +176,18 @@ function PromptDetail(props){
   )
 }
 
-PromptDetail.propTypes = {
-  prompt: PropTypes.object,
-  onClickingDelete: PropTypes.func,
-  onClickingEdit: PropTypes.func
-};
+// PromptDetail.propTypes = {
+//   prompt: PropTypes.object,
+//   onClickingDelete: PropTypes.func,
+//   onClickingEdit: PropTypes.func
+// };
 
-export default PromptDetail;
+const mapStateToProps = state => {
+  return {
+    userLikes: state.userLikes.userLikes,
+  }
+}
+
+PromptDetail = connect(mapStateToProps)(PromptDetail);
+
+export default withFirestore(PromptDetail);

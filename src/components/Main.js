@@ -8,8 +8,7 @@ import EditPromptForm from './prompts/EditPromptForm';
 import * as c from './../actions/ActionTypes';
 import { connect } from 'react-redux';
 import { withFirestore, isLoaded } from 'react-redux-firebase';
-import SignUp from './users/SignUp';
-import SignIn from './users/SignIn';
+
 // import { firestore } from 'firebase';
 
 
@@ -23,21 +22,6 @@ class Main extends React.Component{
     };
   }
 
-  toggleSignupForm = () => {
-    const { dispatch } = this.props;
-    const action = {
-      type: c.TOGGLE_SIGNUP_FORM
-    }
-    dispatch(action);
-  }
-
-  toggleLoginForm = () => {
-    const { dispatch } = this.props;
-    const action = {
-      type: c.TOGGLE_LOGIN_FORM
-    }
-    dispatch(action);
-  }
 
   handleShowNewPostForm = () => {
     this.setState(prevState => ({
@@ -169,7 +153,7 @@ class Main extends React.Component{
 const mapStateToProps = state => {
   return {
     selectedPrompt: state.selectedPrompt.selectedPrompt,
-    showSignupForm: state.showSignupForm,
+    userLikes: state.userLikes.userLikes,
     showLoginForm: state.showLoginForm,
   }
 }
