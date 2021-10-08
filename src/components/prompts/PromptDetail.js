@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, Component } from "react";
 import Post from './../posts/Post'
 import PropTypes from "prop-types";
-import 'firebase/firestore';
+// import * from 'firebase/firestore';
 import { withFirestore, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import * as c from '../../actions/ActionTypes';
 import { connect } from 'react-redux';
@@ -46,6 +46,7 @@ function PromptDetail(props){
       snapshot.forEach((likedPost) => {
         const data = likedPost.data()
         const likeRef = data.postId.toString()
+        // const likeId = likedPost.id.toString()
         likedPostArr.push(likeRef)
       })
       dispatchUserLikes(likedPostArr) 
@@ -63,36 +64,77 @@ function PromptDetail(props){
 
 
 
-//get all posts for this prompt
+
+
+
+
+  // //get all posts for this prompt
   useEffect(() => {
-    async function getAllPosts(){
+    // async function getAllPosts(){
       console.log('get all posts')
       const postArr = [];
-      const postsRef = firestore.collection('posts');
-  
-      const snapshot = await postsRef.where('promptId', '==', currPromptId).get();
-      
-      if(snapshot.empty){
-        console.log('no matching docs');
-        return;
-      }
-      snapshot.forEach((post) => {
-        const data = post.data()
-        const postObj = {
-          imageRef: data.imageRef,
-          promptId: data.promptId,
-          likes: data.likes,
-          timestamp: data.timestamp.toDate().toString(),
-          userId: data.userId,
-          postId: post.id,
-          // currUserLiked: false
+
+      const postsRef = firestore.collection('posts').where('promptId', '==', currPromptId)
+      const unsubscribe = postsRef.onSnapshot(snapshot => {
+
+        if(snapshot.empty){
+          console.log('no matching docs');
+          return;
         }
-          postArr.push(postObj);
-        })
-      setPromptPosts(postArr);
-    }
-    getAllPosts();
+        snapshot.forEach((post) => {
+          const data = post.data()
+          const postObj = {
+            imageRef: data.imageRef,
+            promptId: data.promptId,
+            likes: data.likes,
+            timestamp: data.timestamp.toDate().toString(),
+            userId: data.userId,
+            postId: post.id,
+            // currUserLiked: false
+          }
+            postArr.push(postObj);
+          })
+          setPromptPosts(postArr);
+      })
+      return () => unsubscribe()
+    // }
+    // getAllPosts();
   }, [currPromptId])
+
+
+
+
+
+// //get all posts for this prompt
+  // useEffect(() => {
+  //   async function getAllPosts(){
+  //     console.log('get all posts')
+  //     const postArr = [];
+  //     const postsRef = firestore.collection('posts');
+  
+  //     const snapshot = await postsRef.where('promptId', '==', currPromptId).get();
+      
+  //     if(snapshot.empty){
+  //       console.log('no matching docs');
+  //       return;
+  //     }
+  //     snapshot.forEach((post) => {
+  //       const data = post.data()
+  //       const postObj = {
+  //         imageRef: data.imageRef,
+  //         promptId: data.promptId,
+  //         likes: data.likes,
+  //         timestamp: data.timestamp.toDate().toString(),
+  //         userId: data.userId,
+  //         postId: post.id,
+  //         // currUserLiked: false
+  //       }
+  //         postArr.push(postObj);
+  //       })
+  //     setPromptPosts(postArr);
+  //   }
+  //   getAllPosts();
+  // }, [currPromptId])
 
     const useFocus = () => {
       const containerRef = useRef(null)
@@ -132,6 +174,7 @@ function PromptDetail(props){
     }
   return (
     <React.Fragment>
+      {console.log('rerendering')}
       <section id="team" className="team">
         <div className="padding"/>
         <div className="container" 
