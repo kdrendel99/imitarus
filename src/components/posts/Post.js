@@ -2,17 +2,16 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 // import styled from 'styled-components';
 import {useAuth} from '../contexts/AuthContext';
-import { withFirestore, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
-import * as c from '../../actions/ActionTypes';
+import { withFirestore, useFirestore } from 'react-redux-firebase'
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 function Post(props){ 
   const firestore = useFirestore();
   const {currentUser} = useAuth();
-  const [postId, setPostId] = useState(props.id);
+  const [postId ] = useState(props.id);
   const { userLikes } = props;
-  const [likedPosts, setLikedPosts] = useState(userLikes)
+  const [likedPosts] = useState(userLikes)
   const [userLikedPost, setUserLikedPost] = useState(false);
 
   useEffect(() => {
@@ -22,48 +21,20 @@ function Post(props){
   },[likedPosts])
 
 
-  useEffect(() => {
-    console.log('getting user likes ' + likedPosts)
-  }, [likedPosts])
-
-  // useEffect( async() => {
-  //   if (props.currUserLiked) {
-  //     const getLikeRef = await firestore.collection('likes').where('userId', '==', currentUser.uid).where('postId', '==', postId).get();
-      
-  //       if(getLikeRef.empty){
-  //         console.log('no matching docs');
-  //         return;
-  //       }
-
-  //       getLikeRef.forEach((post) => {
-  //         const data = post.data()
-  //         const likeRef = data.id;
-  //         console.log(likeRef);
-  //     })
-  //   }
-  // })
-
   // useEffect(() => {
-  //   console.log(postId)
-  // }, [postId])
+  //   console.log('getting user likes ' + likedPosts)
+  // }, [likedPosts])
 
-  // const validateUser = () => {
-  //   if(currentUser){
-  //       if(!userLikedPost){
-  //         console.log('user: ' + currentUser.uid + '  liked!');
-  //         setUserLikedPost(true);
-  //         addUserLike();
-  //       } else {
-  //         console.log('user: ' + currentUser.uid + "  deleting like");
-  //         setUserLikedPost(!userLikedPost);
-  //         removeLike();
-  //       }
-  //   } 
-  //   else {
-  //     console.log('not signed in')
-  //     history.push("/signup");
-  //   }
-  // }
+  const handleClickLike = () => {
+    if (currentUser !== null){
+      //handle like here
+      console.log('youre all signed in!')
+      console.log(props.id + " = post id, and user Id = " + currentUser.uid)
+    } else {
+      alert('You need to be signed in to interact in the galleries.')
+      console.log(currentUser);
+    }
+  }
 
 
   return (
@@ -80,7 +51,7 @@ function Post(props){
           </div>
           <div className="social">
             <i className={userLikedPost ? "bi bi-heart-fill" : "bi bi-heart"} 
-            onClick={() => console.log(props.id + " = post id, and user Id = " + currentUser.uid)}
+            onClick={() => handleClickLike()}
             />
             <i className="bi bi-save2-fill"></i>
           </div>

@@ -1,3 +1,47 @@
+//like post
+  // useEffect( async() => {
+  //   if (props.currUserLiked) {
+  //     const getLikeRef = await firestore.collection('likes').where('userId', '==', currentUser.uid).where('postId', '==', postId).get();
+      
+  //       if(getLikeRef.empty){
+  //         console.log('no matching docs');
+  //         return;
+  //       }
+
+  //       getLikeRef.forEach((post) => {
+  //         const data = post.data()
+  //         const likeRef = data.id;
+  //         console.log(likeRef);
+  //     })
+  //   }
+  // })
+
+  // useEffect(() => {
+  //   console.log(postId)
+  // }, [postId])
+
+  // const validateUser = () => {
+  //   if(currentUser){
+  //       if(!userLikedPost){
+  //         console.log('user: ' + currentUser.uid + '  liked!');
+  //         setUserLikedPost(true);
+  //         addUserLike();
+  //       } else {
+  //         console.log('user: ' + currentUser.uid + "  deleting like");
+  //         setUserLikedPost(!userLikedPost);
+  //         removeLike();
+  //       }
+  //   } 
+  //   else {
+  //     console.log('not signed in')
+  //     history.push("/signup");
+  //   }
+  // }  
+  
+  
+  
+  
+  
   // useEffect(() => {
   //   async function getUserLikes(){
   //   if (!currentUser){
