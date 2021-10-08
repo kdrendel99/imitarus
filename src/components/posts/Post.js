@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // import styled from 'styled-components';
 import { useFirestore } from 'react-redux-firebase';
 import {useAuth} from '../contexts/AuthContext';
+import { useHistory } from 'react-router-dom';
 
 function Post(props){ 
   const [userLikedPost, setUserLikedPost] = useState(props.currUserLiked);
@@ -10,6 +11,7 @@ function Post(props){
   const {currentUser} = useAuth();
   const [postId, setPostId] = useState(props.id);
   const [addedLike, setAddedLike] = useState(null)
+  const history = useHistory();
 
   // function whenVoteClicked(id, currScore, vote){
   //   const firestorePostScore = {
@@ -75,7 +77,7 @@ function Post(props){
     } 
     else {
       console.log('not signed in')
-      //open create account div
+      history.push("/signup");
     }
   }
   return (

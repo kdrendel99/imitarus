@@ -103,7 +103,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
-#header {
+/* #header {
   height: 72px;
   transition: all 0.5s;
   z-index: 997;
@@ -126,7 +126,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   padding: 0;
   margin: 0;
   max-height: 40px;
-}
+} */
 
 #main {
   margin-top: 72px;
@@ -322,17 +322,21 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   display: block;
 }
 
-.login-btn{
+.login-btn, .login-btn Link{
   background-color: transparent;
+  display: inline-block!important;
+  
   font-family: Athelas;
   color: #999999;
   border: none;
 }
-.login-btn:hover{
+.login-btn:hover, .login-btn Link{
   color: #90b493;
   text-decoration: underline;
   transition: 1s;
 }
+
+
 
 /*--------------------------------------------------------------
 # Hero Section
@@ -351,10 +355,20 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   width: 100%;
   background-position: center;
 }
-#hero h1 {
+/* #hero h1 {
   margin: 0;
   font-size: 48px;
   font-weight: 700;
+  line-height: 56px;
+  color: #4e4039;
+} */
+
+#hero h1 {
+  margin: 0;
+  font-size: 60px;
+  font-family: 'Italiana';
+  letter-spacing: .05em;
+  font-weight: 100;
   line-height: 56px;
   color: #4e4039;
 }
@@ -453,7 +467,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 # Sections General
 --------------------------------------------------------------*/
 section {
-  padding: 60px 0;
+  /* padding: 60px 0; */
   overflow: hidden;
 }
 
@@ -1039,6 +1053,12 @@ label.form-invalid:after {
   padding-right: 5%;
 }
 
+.update_profile_background {
+  /* background-color: #dcd7d4; */
+  background-color: #a7bab4;
+  /* background-color: #ebf0f3; */
+  /* background-color: #e0e2e7; */
+}
 
 
 /*--------------------------------------------------------------
@@ -1046,6 +1066,7 @@ label.form-invalid:after {
 --------------------------------------------------------------*/
 .faq {
   padding: 60px 0;
+  padding-top: 20px;
   font-family: "Athelas";
   letter-spacing: 0.05em;
 }

@@ -75,8 +75,8 @@ function Home(props){
             <div className="row gy-4">
               <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
               {/* <div className="container-fluid animated"> */}
-                <h1>Imitarus</h1>
-                <h2>An artificial intelligence-driven digital art gallery.</h2>
+                <h1 style={{color:"#a5a7a8"}}>Welcome</h1>
+                <h2 style={{color:"#a5a7a8"}}>An artificial intelligence-driven digital art gallery.</h2>
                 <div>
                   <a href="#faq" className="btn-get-started scrollto">Get Started</a>
                 </div>
@@ -92,11 +92,11 @@ function Home(props){
 
           <section id="faq" className="faq section-bg">
             <div className="padding"/>
-            <div className="container" data-aos="fade-up">
+            <div className="text-center container" data-aos="fade-up">
 
             <div className="section-title">
-              <h2>note</h2>
-              <p>Lorem Ipsum</p>
+              {/* <h2>note</h2> */}
+              <p>Prompts</p>
             </div>
             {prompts.map((prompt) => {
               return <Prompt

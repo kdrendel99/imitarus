@@ -49,7 +49,7 @@ const UpdateProfile = (props) => {
   return (
     <React.Fragment>
     {error && alert(error)}
-    <div className="sign_up_bg">
+    <div className="update_profile_bg">
     <div className="padding"/>
     <div className="padding"/>
     <div className="padding"/>
