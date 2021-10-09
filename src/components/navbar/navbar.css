@@ -1,22 +1,20 @@
-/* html,body
+html,body
 {
     width: 100%;
     margin: 0px;
     padding: 0px;
-    overflow-x: hidden; 
-} */
+
+}
 
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 #header {
   height: 72px;
-  z-index: 997;
-  /* transition: all .5s; */
+  /* z-index: 997; */
   transition-duration: 0s;
   background: #fff;
-  top: -100%;
-  /* opacity: 100%; */
+  /* top: -100%; */
   transition: top .5s;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 }
@@ -41,36 +39,6 @@
   color: lightslategray;
   text-decoration: none;
 }
-
-
-/* from portfolio site:  */
-/* #header {
-  transition: all 0.5s;
-  z-index: 997;
-  padding: 15px 0;
-  background-color: #fff;
-  top: -100%;
-  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.08);
-}
-
-#header.header-scrolled, #header.header-inner-pages {
-  top: 0;
-}
-
-#header .logo {
-  font-size: 30px;
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  font-weight: 600;
-  letter-spacing: 1px;
-  font-family: "Playfair Display", sans-serif;
-  font-style: italic;
-}
-
-#header .logo a {
-  color: #898989;
-} */
 
 
 @media (max-width: 992px) {
@@ -258,7 +226,7 @@
 } */
 
 .navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
-  color: #b8a07e;
+  color: green;
 }
 
 /* .navbar-mobile .getstarted, .navbar-mobile .getstarted:focus {

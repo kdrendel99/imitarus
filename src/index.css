@@ -103,34 +103,10 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
-/* #header {
-  height: 72px;
-  transition: all 0.5s;
-  z-index: 997;
-  transition: all 0.5s;
-  background: #fff;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-}
-#header .logo h1 {
-  font-size: 30px;
-  margin: 0;
-  line-height: 1;
-  font-weight: 400;
-  letter-spacing: 2px;
-}
-#header .logo h1 a, #header .logo h1 a:hover {
-  color: #0f0e09;
-  text-decoration: none;
-}
-#header .logo img {
-  padding: 0;
-  margin: 0;
-  max-height: 40px;
-} */
 
 #main {
   margin-top: 72px;
-}
+} 
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -140,6 +116,9 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 */
 .navbar {
   padding: 0;
+}
+.navbar ul a {
+  text-decoration: none;
 }
 .navbar ul {
   margin: 0;
@@ -152,13 +131,13 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   position: relative;
 }
 
-.navbar a, .navbar a:focus {
+.navbar li a, .navbar li a:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0 10px 30px;
   font-size: 15px;
-  color: #999999;
+  color: #212529;
   font-family: 'Athelas';
   white-space: nowrap;
   transition: 0.3s;
@@ -800,59 +779,105 @@ section {
 /*--------------------------------------------------------------
 # Sign In
 --------------------------------------------------------------*/
-/* .background-signin {
-  height: 100%vh;
+.background-signin {
+  /* background: url("./images/greek-statues.jpg") repeat scroll center center/cover; */
+  height: 100vh;
+  background-color: #b5bcc2;
 }
 
-.real_login_form {
-  background-color: #e0dcd8;
+.real_login_form{
+  padding-top: 30px;
+  height: 100vh;
+  background-color: lightgrey;
+}
+
+.real_login_form .formcontainer{
+  padding-top: 15%;
+  max-width: 100%;
+}
+
+/* this is the card behind the login form */
+/* .real_login_form .card{
+  padding-left: 10;
 } */
 
-.real_login_form * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  max-height: 80%
+.real_login_form .form1{
+  max-height: 75%;
+  max-width: 800px;
 }
 
-.real_login_form .row-login{
-  padding-left: 20%;
+.real_login_form .col1{
+  height: 100vh;
 }
 
 .real_login_form .row {
-  max-width:70%;
   border-radius: 30px;
   box-shadow: 12px 12px 22px grey;
-  /* border: 3px solid;
-  color: blue; */
+  overflow: hidden;
 }
 
-.real_login_form section{
-  align-items: center;
-  overflow:visible;
+.real_login_form .inputarea{
+  width: 100%!important;
 }
-
-.real_login_form .img {
-  overflow:hidden;
-}
-
-/* .real_login_form * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-} */
-
-.real_login_form .test{
-  background-image: url(./images/david2.jpeg);
-  background-position:center;
-  background-size:cover;
-}
-
-
 
 .real_login_form img{
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
+}
+
+.real_login_form .form-control:clicked{
+  color: #555555!important;
+  border: 3px solid #333333!important;
+  border-radius:10px!important;
+}
+
+.real_login_form .login-button {
+  background: #ffffff;
+  color: #919191;
+  height: 40px;
+  width: 100%;
+  margin-top: -25px;
+  border: 3px solid #a9a9a9;
+  border-radius:5px;
+  transition: all ease-in-out 500ms;
+}
+.real_login_form .login-button:hover {
+  color: #555555;
+  background-color: #fafafa;
+  border: 3px solid #333333;
+  border-radius:10px;
+}
+.real_login_form .login-button.clicked {
+  color: #555555;
+}
+.real_login_form .login-button.clicked:hover {
+  transform: none;
+}
+.real_login_form .login-button.clicked.success {
+  color: #2ecc71;
+}
+.real_login_form .login-button.clicked.error {
+  color: #e74c3c;
+}
+
+.real_login_form .login-help a{
+  text-decoration: none;
+}
+
+.real_login_form .login-help p{
+  font-size: 15px!important;
+  font-size: 3.5vw;
+  font-family: 'Athelas';
+  letter-spacing: .06px;
+  font-weight: bolder;
+  color: #919191;
+  text-decoration: none;
+}
+
+.real_login_form .login-help p:hover{
+  color: #212529;
+  text-decoration: underline;
+  transition: all ease-in-out 500ms;
 }
 
 /*=== 2. Anchor Link ===*/

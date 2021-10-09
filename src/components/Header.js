@@ -4,7 +4,7 @@ import { useAuth } from './contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom'
 import * as c from './../actions/ActionTypes';
 import PropTypes from "prop-types";
-import navAnimations from './navbar/navbar';
+// import navAnimations from './navbar/navbar';
 import './navbar/navbar.css';
 
 function Header(props){
@@ -27,13 +27,13 @@ function Header(props){
   const [dropdownLoaded, setDropdownLoaded] = useFocus();
 
 
-  useEffect(() => {
-    if(navbarAnimations){
-      if (navbarAnimations){
-        navAnimations();
-      }
-    }
-  })
+  // useEffect(() => {
+  //   if(navbarAnimations){
+  //     if (navbarAnimations){
+  //       navAnimations();
+  //     }
+  //   }
+  // })
 
   // useEffect(() => {
   //   console.log(user)
@@ -51,6 +51,8 @@ function Header(props){
   }
 
   useEffect(() => {
+    console.log('dropdown was changed')
+    console.log(dropdown)
     //Only runs on the first load. Prevents initial load from toggling dropdown to true.
     if (!dropdownInitial){
       setDropdownInitial(true);
@@ -62,11 +64,12 @@ function Header(props){
   }, [dropdown])
 
   const resetSelected = () => {
-    const { dispatch } = this.props;
+    const { dispatch } = props;
     const action = {
       type: c.REMOVE_SELECTED_PROMPT
     }
     dispatch(action);
+    // setDropdown(false);
   }
 
   async function handleLogout() {
@@ -92,19 +95,17 @@ function Header(props){
           <nav id="navbar" className="navbar" >
             <ul>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/" onClick={() => resetSelected()}>Home</Link>
                 </li>
                 <li>
-                  <Link to="/signup">Register</Link>
-                </li>
-                <li>
-                  <Link to="/login">Log in</Link>
-                </li>
-                <li>
-                  <Link to="/update-profile">PROF</Link>
+                  <Link to="/signup" onClick={() => resetSelected()}>Register</Link>
                 </li>
 
-                <li> <a onClick = {() => handleLogout()} className="login-btn">Log out</a></li>
+                {!currentUser?<li><Link to="/login" onClick={() => resetSelected()}>Log in</Link></li>:null}
+
+                {currentUser?<li><Link to="/update-profile" onClick={() => resetSelected()}>PROF</Link></li>: null}
+
+                {currentUser?<li><a onClick = {() => handleLogout()} className="login-btn" onClick={() => resetSelected()}>Log out</a></li>:null}
 
                 {/* <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#contact">Contact</a></li> */}
             </ul>

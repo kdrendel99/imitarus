@@ -31,55 +31,59 @@ const SignIn = (props) => {
     // const showError = () => {
     //   return <div className="alert-danger">error</div>
     // }
+    // container-fluid g-4 d-flex justify-content-between
 
   return (
     <React.Fragment>
-      {error && alert(error)}
-      {/* <div className="flex-background-signin"> */}
-      <div className="padding"/>
-      <div className="padding"/>
-      <div className="padding"/>
-        <div className="real_login_form">
-          <div className="row-login text-center">
-            <section className="col my-4 mx-5">
-              <div className="row img g-0">
-                <div className="col test"/>
-                <div className="col px-5 pt-5">
-                <div class="login-word">Login</div>
-                  <div class="login-form-1">
-                    <form onSubmit={handleSubmit} id="login-form">
-                    <div class="login-form-main-message"></div>
-                      <div class="main-login-form">
-                        <div class="login-group">
-                          <div class="form-group">
-                            <label for="lg_username" class="sr-only">Username</label>
-                            <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username" ref={emailRef}/>
-                          </div>
-                          <div class="form-group">
-                          <label for="lg_password" class="sr-only">Password</label>
-                          <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password" ref={passwordRef}/>
-                          </div>
-                        </div>
-                      <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+      <div className="real_login_form">
+          <div className="container col1 d-flex align-items-center justify-content-center">
+
+            <div className="row form1 w-85">
+              {/* david  */}
+              <div className="col g-0 d-none d-sm-block col-sm-6">
+                <img src={david} className="img-fluid" alt=""/>
+              </div>
+              
+              {/* form */}
+              <div className="col card">
+                
+                <div className="container-fluid formcontainer">
+                <h1 className="font-weight-bold py-3">Login</h1>
+                <h4>Sign into your account</h4>
+                <form>
+                  <div className="form-row">
+                    <div className="col">
+                      <input type="email" placeholder="Email" className="form-control my-3 p-2"/>
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="col">
+                      <input type="password" placeholder="******" className="form-control my-3 p-2"/>
+                    </div>
+                    <div className="form-row">
+                      <div className="col">
+                        <button type="button" className="login-button">Login</button>
                       </div>
-                      <div class="etc-login-form"> 
+                    </div>
+                    <div className="form-row">
+                      <div className="col login-help mt-3 mb-5">
                         <Link to="/forgot-password">
-                          forgot your password?
+                          <p>Forgot your password?</p>
                         </Link>
 
                         <Link to='/signup'>
-                          Create an account
+                          <p>Create an account</p>
                         </Link>
-
                       </div>
-                    </form>
+                    </div>
                   </div>
-                </div>
+                </form>
               </div>
-            </section>
+
+              </div>
+            </div>
           </div>
         </div>
-        {/* </div> */}
     </React.Fragment>
   );
 }

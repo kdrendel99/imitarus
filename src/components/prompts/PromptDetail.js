@@ -61,13 +61,6 @@ function PromptDetail(props){
     console.log(likedPosts)
   }, [])
 
-
-
-
-
-
-
-
   // //get all posts for this prompt
   useEffect(() => {
     // async function getAllPosts(){
@@ -175,18 +168,18 @@ function PromptDetail(props){
   return (
     <React.Fragment>
       {console.log('rerendering')}
+    <div id='main' className="main">
       <section id="team" className="team">
-        <div className="padding"/>
-        <div className="container" 
+        <div className="container px-lg-5" 
           ref={containerLoaded} onLoad={setContainerLoaded}
           >
-          <div className="prompt-details-heading" data-aos="fade-up">
+          <div className="prompt-details-heading pt-20" data-aos="fade-up">
           <h2>{prompt.name}</h2>
           <p>{prompt.timestamp}</p>
           </div>
-          <div className="row">
+          <div className="row mx-lg-n5">
             <Masonry
-              breakpointsCols={breakpoints}
+              breakpointscols={breakpoints}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column"
               >
@@ -215,6 +208,7 @@ function PromptDetail(props){
     <button onClick={()=> onClickingDelete(prompt.id) }>Delete Prompt</button> 
     <hr/>
     <button onClick={() => props.returnHome()}>Return to prompt list</button>
+  </div>
   </React.Fragment>
   )
 }

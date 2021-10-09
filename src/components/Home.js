@@ -35,7 +35,12 @@ function Home(props){
   }
 
   useEffect(() => {
-    console.log('the current user is: ' + currentUser.email);
+    if(currentUser !== null){
+      console.log('the current user is: ' + currentUser.email);
+    }
+    else {
+      console.log('user not signed in')
+    }
   })
 
 
@@ -84,7 +89,7 @@ function Home(props){
                 <h1>Imitarus</h1>
                 <h2>An artificial intelligence-driven digital art gallery.</h2>
                 <div>
-                  <a href="#faq" className="btn-get-started scrollto">Get Started</a>
+                  <button className="btn-get-started scrollto">Get Started</button>
                 </div>
               {/* </div> */}
               </div>
