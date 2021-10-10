@@ -46,8 +46,6 @@ function NewFormPost(props){
   const addPostToPostCollection = () => {
     if (currentUser !== null){
       const userName = currentUser.email.split('@');
-      // const promptRef = firestore.collection('prompts').doc(selectedPrompt);
-      console.log('posted')
       firestore.collection('posts').add(
         {
           imageRef: downloadUrl,

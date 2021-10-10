@@ -23,6 +23,7 @@ function PromptDetail(props){
   const [likedPosts, setLikedPosts] = useState(userLikes)
   const [currPromptId, setCurrPromptId] = useState(prompt.id);
   const [promptPosts, setPromptPosts] = useState([]);
+  const [updatePosts, setUpdatePosts] = useState(false);
   const history = useHistory();
 
   const dispatchUserLikes = (likesArr) => {
@@ -58,10 +59,6 @@ function PromptDetail(props){
   useEffect(() => {
     handleGetUserLikes()
   },[])
-
-  // useEffect(() => {
-  //   console.log(likedPosts)
-  // }, [])
 
   // //get all posts for this prompt
   useEffect(() => {
@@ -101,41 +98,6 @@ function PromptDetail(props){
     }
   }
 
-
-
-
-
-// //get all posts for this prompt
-  // useEffect(() => {
-  //   async function getAllPosts(){
-  //     console.log('get all posts')
-  //     const postArr = [];
-  //     const postsRef = firestore.collection('posts');
-  
-  //     const snapshot = await postsRef.where('promptId', '==', currPromptId).get();
-      
-  //     if(snapshot.empty){
-  //       console.log('no matching docs');
-  //       return;
-  //     }
-  //     snapshot.forEach((post) => {
-  //       const data = post.data()
-  //       const postObj = {
-  //         imageRef: data.imageRef,
-  //         promptId: data.promptId,
-  //         likes: data.likes,
-  //         timestamp: data.timestamp.toDate().toString(),
-  //         userId: data.userId,
-  //         postId: post.id,
-  //         // currUserLiked: false
-  //       }
-  //         postArr.push(postObj);
-  //       })
-  //     setPromptPosts(postArr);
-  //   }
-  //   getAllPosts();
-  // }, [currPromptId])
-
     const useFocus = () => {
       const containerRef = useRef(null)
       const setFocus = () => {containerRef.current && containerRef.current.focus()}
@@ -162,6 +124,10 @@ function PromptDetail(props){
         // cleanup
         // return () => isotope.current.destroy()
       }, [])
+
+      const renderOnLike = () => {
+        setUpdatePosts(!updatePosts)
+      }
 
 
     const breakpoints = {
@@ -193,7 +159,7 @@ function PromptDetail(props){
                 {/* {console.log('liked posts: ' + likedPosts)} */}
               {promptPosts.map((post) =>
                 <Post
-                  // whenPostClicked = { props.onPostSelection }
+                  renderOnLike = { renderOnLike }
                   imageRef = {post.imageRef}
                   promptId = {post.promptId}
                   likes = {post.likes}

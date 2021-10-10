@@ -1,164 +1,208 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-// import styled from 'styled-components';
 import {useAuth} from '../contexts/AuthContext';
-import { withFirestore, useFirestore, useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
+import { withFirestore, useFirestore } from 'react-redux-firebase'
 import { connect } from 'react-redux';
-import { useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import * as c from '../../actions/ActionTypes';
 
 function Post(props){ 
   const firestore = useFirestore();
   const {currentUser} = useAuth();
   const [postId] = useState(props.id);
-  // const { userLikes } = props;
-  const [likedPosts] = useState(props.userLikes)
   const [userLikedPost, setUserLikedPost] = useState(false);
-  const [userLikeId, setUserLikeId] = useState();
+  const [likeTotal, setLikeTotal] = useState(props.likes);
+  // const [staticLikeIncrease, setStaticLikeIncrease] = useState(false);
+  const history = useHistory();
+
+  // const [userLikeId, setUserLikeId] = useState();
+  const [isLoading, setIsLoading] = useState(false)
+  const [like, setLike] = useState(false)
+  const [likeId, setLikedId] = useState();
 
 
-  // useFirestoreConnect([
-  //   { collection: 'likes' } 
-  // ])
-  // const likes = useSelector(state => state.firestore.ordered.likes)
 
-  useEffect(() => {
-    console.log(likedPosts)
-    if(likedPosts === null || likedPosts === undefined){
-      return;
-    } else {
-        if(likedPosts.includes(postId)){
-          setUserLikedPost(true);
-        } else {
-          return;
-        }
-      }
-  }, [likedPosts])
+  // useEffect(() => {
+  //   // console.log(props.userLikes)
+  //   if(props.userLikes === null || props.userLikes === undefined){
+  //     // console.log('returned')
+  //     return;
+  //   } else {
+  //     // console.log('tried comparison')
+  //       if(props.userLikes.includes(postId)){
+  //         // handleAddingLike(postId);
+  //         console.log('')
+  //       } else {
+  //         return;
+  //       }
+  //     }
+  // })
+
+  // useEffect(() => {
+  //   console.log(userLikedPost)
+  // },[userLikedPost])
 
 
-  const newLike = async() => {
-    firestore.collection('likes').add(
-      {
-        postId: postId,
-        userId: currentUser.uid,
-      }
-    ).then(function(newLike) {
-      console.log("Like doc ID: ", newLike.id);
-      setUserLikeId(newLike.id)
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-    });
-    // setUserLikedPost(true);
-    const postRef = firestore.collection('posts').doc(postId)
-    try {
-      const res = await firestore.runTransaction(async t => {
-        const doc = await t.get(postRef);
-        const newTotal = doc.data().likes + 1;
-          await t.update(postRef, { likes: newTotal });
-          return newTotal;
-      });
-      // setCurrentLikes(res);
-    } catch (e) {
-      console.log('Transaction failure:', e);
-    }
-  }
-
-  // const onLikePost = () => {
+  // const newLike = async() => {
+  //   // console.log('youre all signed in!')
+  //   // console.log(props.id + " = post id, and user Id = " + currentUser.uid)
+  //   //adds like to like collection
   //   firestore.collection('likes').add(
   //     {
   //       postId: postId,
   //       userId: currentUser.uid,
   //     }
   //   ).then(function(newLike) {
-  //     console.log("Like doc ID: ", newLike.id);
+  //     // console.log("Like doc ID: ", newLike.id);
   //     setUserLikeId(newLike.id)
   //   })
   //   .catch(function(error) {
-  //       console.error("Error adding document: ", error);
+  //       // console.error("Error adding document: ", error);
   //   });
-  //   setUserLikedPost(true);
+
+
+  // const handleAddingLike = (id) => {
+  //   const { dispatch } = this.props;
+  //   const action = {
+  //     type: c.ADD_USER_LIKE,
+  //     id: id,
+  //   }
+  //   dispatch(action);
+  // };
+
+
+  // const handleRemovingLike = (id) => {
+  //   const { dispatch } = this.props;
+  //   const action = {
+  //     type: c.REMOVE_USER_LIKE,
+  //     id: id
+  //   }
+  //   dispatch(action);
   // }
 
-  const onRemoveLikePost = () => {
-    const deleteLikeQuery = firestore.collection('likes').where('postId', '==', 'postId').where('userId', '==', currentUser.uid);
-    deleteLikeQuery.get().then(function(snapshot) {
-      snapshot.forEach(function(doc){
-        doc.ref.delete()
-      })
-      setUserLikedPost(false)
-    })
-    .catch(function(error) {
-      console.error("Error deleting like: ", error);
+
+  const observer = firestore.collection('likes').where('userId', '==', currentUser.uid)
+  .onSnapshot(querySnapshot => {
+    querySnapshot.docChanges().forEach(change => {
+      if (change.type === 'added') {
+        // console.log('New like: ', change.doc.data().postId);
+        const newLike = change.doc.data().postId;
+        if(newLike === postId){
+          setLike(true)
+        }
+      }
+      if (change.type === 'removed') {
+        // console.log('Removed like: ', change.doc.data());
+        const newLike = change.doc.data().postId;
+        if(newLike === postId){
+          setLike(false)
+        }
+      }
+    });
   });
-  }
 
-  const checkForLikeExistence = async() => {
-    const likeQuery = await firestore.collection('likes').where('postId', '==', 'postId').where('userId', '==', currentUser.uid).get();
-    if (likeQuery.empty){
-      console.log('like doesnt exist')
-      return false
-    } else {
-      console.log('like exists already')
-      return true
-    }
-  }
+  useEffect(() => {
+    console.log('IT WORKED: ' + like)
+  }, [like])
+
+  useEffect(() => {
+    console.log('new like id ' + likeId)
+  }, [likeId])
 
 
 
-  const handleClickLike = () => {
-    if (currentUser !== null){
-      //handle like here
-      console.log('youre all signed in!')
-      console.log(props.id + " = post id, and user Id = " + currentUser.uid)
-      newLike();
+  const addLike = async(value) => {
+      // handleAddingLike(postId)
+      const data = {
+        postId: postId,
+        userId: currentUser.uid,
+      }
+
+      const res = await firestore.collection('likes').doc(`${postId + currentUser.uid}`).set(data);
+
+    const postRef = firestore.collection('posts').doc(postId);
+    // postRef.update({ likes: FieldValue.increment(value)});
+    postRef.update(
+      'likes', firestore.FieldValue.increment(value)
+    ).then(() => {
+      return postRef.get();
+    }).then(doc => {
+      setLikeTotal(doc.get('likes'))
       setUserLikedPost(true);
-      // if(userLikedPost === true){
-      //   onRemoveLikePost()
-      // } else {
-      //   onLikePost()
-      // }
-    } else {
-      alert('You need to be signed in to interact in the galleries.')
-      console.log(currentUser);
-    }
+      setIsLoading(false)
+    });
   }
 
-  // if (isLoaded(likes)){
+  const removeLike = async(value) => {
+      // handleRemovingLike(postId)
+      const res = await firestore.collection('likes').doc(`${postId + currentUser.uid}`).delete()
+  }
+
+
+  // const handleClickLike = () => {
+  //   setIsLoading(true)
+  //   if (currentUser !== null){
+  //       if(userLikedPost === false){
+  //         //handle like here
+  //         updateLike(1)
+  //       } else if (userLikedPost === true){
+  //         updateLike(-1)
+  //       }
+  //     } else {
+  //       setIsLoading(false)
+  //       history.push("/")
+  //     }
+  //   }     
+    
+
+
+
+    const handleClickLike = () => {
+          addLike(1)
+    } 
+
+    const handleClickUnlike = () => {
+      removeLike(-1)
+    }
+
+
+
+
+
+
+
+
+
+
     return (
       <React.Fragment>
-        {/* onClick = {() => props.whenPostClicked(props.id)} */}
+        {console.log('rendered')}
           <div className="member">
             <img src={props.imageRef} className="img img-responsive" 
             alt=""/>
             <div className="member-info">
             <div className="member-info-content">
+              <h3>{postId}</h3>
               <h4>@{props.userId}</h4>
               <span>{props.timestamp}</span>
-              {/* <p>{currentLikes}</p> */}
+              <p>{likeTotal} <i className="bi bi-heart-fill"/></p>
             </div>
             <div className="social">
-              <i className={userLikedPost ? "bi bi-heart-fill" : "bi bi-heart"} 
+              <i className={like ? "bi bi-heart-fill" : "bi bi-heart"} disable={isLoading}
               onClick={() => handleClickLike()}
               />
-              <i className="bi bi-save2-fill"></i>
+              <i className={like ? "bi bi-heart-fill" : "bi bi-heart"} onClick={() => handleClickUnlike()}></i>
             </div>
             </div>
           </div>
       </React.Fragment>
     );
-  // } else {
-  //   return (
-  //     <React.Fragment>
-  //       <h3>Loading...</h3>
-  //     </React.Fragment>
-  //   )
-  // }
 }
 
 const mapStateToProps = state => {
   return {
     userLikes: state.userLikes.userLikes,
+    localLikes: state.localLikes.localLikes
   }
 }
 

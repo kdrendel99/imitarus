@@ -8,3 +8,6 @@ export const DELETE_POST = 'DELETE_POST';
 export const UPDATE_SCORE = 'UPDATE_SCORE';
 
 export const GET_USER_LIKES = 'GET_USER_LIKES'
+
+export const ADD_USER_LIKE = 'ADD_USER_LIKE'
+export const REMOVE_USER_LIKE = 'REMOVE_USER_LIKE'
