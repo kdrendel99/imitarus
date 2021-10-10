@@ -88,9 +88,9 @@ function Home(props){
               {/* <div className="container-fluid animated"> */}
                 <h1>Imitarus</h1>
                 <h2>An artificial intelligence-driven digital art gallery.</h2>
-                <div>
+                {/* <div>
                   <button className="btn-get-started scrollto">Get Started</button>
-                </div>
+                </div> */}
               {/* </div> */}
               </div>
               {/* <div className="col-lg-6 order-1 order-lg-2 hero-img">

@@ -1,3 +1,253 @@
+.new_post_form {
+  height: 100vh;
+  margin-top: 60px;
+  padding-top: 4%;
+  /* background-color: #e5e5e5; */
+  background: linear-gradient(270deg, #cad6d8, #dbdcde, #bbc9d2, #c2cdd6);
+  background-size: 800% 800%;
+
+  -webkit-animation: AnimationName 30s ease infinite;
+  -moz-animation: AnimationName 30s ease infinite;
+  animation: AnimationName 30s ease infinite;
+  /* border: 3px solid red; */
+}
+
+@-webkit-keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+
+
+.new_post_form .yerba{
+  /* box-shadow: 12px 12px 22px grey; */
+  /* background-color: #fafafa; */
+  max-width: 70%;
+  max-height: 100%;
+  border-radius: 15px;
+  /* overflow: auto; */
+  height: 90%;
+  box-sizing: border-box;
+  /* border: 3px solid blue; */
+  /* border: 5px solid red; */
+}
+
+.new_post_form .poptarts{
+  width: 100%;
+  /* border: 3px solid green; */
+}
+.new_post_form .candy{
+  width: 100%;
+  /* border: 3px solid yellow; */
+}
+
+
+.new_post_form .james{
+  padding-top: 5%;
+  text-align: center;
+}
+
+.new_post_form .prompt_heading{
+  max-height: 75%;
+  max-width: 100%;
+  font-size: 150%;
+  padding-top: 3%;
+  text-align: center;
+}
+
+.new_post_form .test{
+  background-color: #fafafa;
+  z-index:1;
+  border-radius: 15px;
+  box-shadow: 12px 12px 22px grey;
+  /* border: 3px solid blue; */
+  box-sizing: border-box;
+  bottom: 3%;
+  height: 80%;
+  width: 60%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.new_post_form .card{
+  /* background-color: #fafafa; */
+  background: linear-gradient(45deg, #f9feff, #f5f5f5);
+  /* border: 3px solid red; */
+  box-sizing: border-box;
+  bottom: 0;
+  position: absolute;
+}
+
+/* 010101 */
+
+.new_post_form .backtoprompt{
+    background: #ededf1;
+    color: #919191;
+    height: 40px;
+    /* top: 15px; */
+    width: 120%;
+    margin-top: 48px;
+    border:5px #d8dee1;
+    /* border: 3px solid #a9a9a9; */
+    border-radius:8px;
+    transition: all ease-in-out 500ms;
+}
+
+.new_post_form .backtoprompt:hover {
+  color: #555555;
+  background-color: #fafafa;
+  /* border: 3px solid #333333; */
+  border-radius:10px;
+}
+
+.new_post_form .fileupload{
+  background: #ededf1;
+  cursor:pointer;
+  color: #919191;
+  display: inline-block;
+  height: 40px;
+  width: 120%;
+  padding-top:8px;
+  margin-bottom: 25px;
+  border:5px #d8dee1;
+  /* border: 3px solid #a9a9a9; */
+  border-radius:8px;
+  transition: all ease-in-out 500ms;
+}
+
+.new_post_form .fileupload:hover {
+/* color: #555555; */
+/* background-color: #fafafa; */
+/* border: 3px solid #333333; */
+border-radius:10px;
+}
+
+.new_post_form .share{
+  background: #010101;
+  color: #f1f4f9;
+  height: 40px;
+  width: 120%;
+  margin-top: 48px;
+  border:5px #d8dee1;
+  /* border: 3px solid #a9a9a9; */
+  border-radius:8px;
+  transition: all ease-in-out 500ms;
+}
+
+.new_post_form .share:hover {
+color: #555555;
+background-color: #fafafa;
+/* border: 3px solid #333333; */
+border-radius:10px;
+}
+
+
+
+
+.new_post_form .form-control:clicked{
+  color: #555555!important;
+  border: 3px solid #333333!important;
+  border-radius:10px!important;
+}
+
+.new_post_form .login-button {
+  background: #ffffff;
+  color: #919191;
+  height: 40px;
+  width: 100%;
+  margin-top: -25px;
+  border: 3px solid #a9a9a9;
+  border-radius:5px;
+  transition: all ease-in-out 500ms;
+}
+.new_post_form .login-button:hover {
+  color: #555555;
+  background-color: #fafafa;
+  border: 3px solid #333333;
+  border-radius:10px;
+}
+.new_post_form .login-button.clicked {
+  color: #555555;
+}
+.new_post_form .login-button.clicked:hover {
+  transform: none;
+}
+.new_post_form .login-button.clicked.success {
+  color: #2ecc71;
+}
+.new_post_form .login-button.clicked.error {
+  color: #e74c3c;
+}
+
+.new_post_form .login-help a{
+  text-decoration: none;
+}
+
+.new_post_form .login-help p{
+  font-size: 15px!important;
+  font-size: 3.5vw;
+  font-family: 'Athelas';
+  letter-spacing: .06px;
+  font-weight: bolder;
+  color: #919191;
+  text-decoration: none;
+}
+
+.new_post_form .login-help p:hover{
+  color: #212529;
+  text-decoration: underline;
+  transition: all ease-in-out 500ms;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
