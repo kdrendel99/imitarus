@@ -2,47 +2,39 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 // import styled from 'styled-components';
 import {useAuth} from '../contexts/AuthContext';
-import { withFirestore, useFirestore } from 'react-redux-firebase'
+import { withFirestore, useFirestore, useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { connect } from 'react-redux';
+import { useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 
 function Post(props){ 
   const firestore = useFirestore();
   const {currentUser} = useAuth();
   const [postId] = useState(props.id);
-  const { userLikes } = props;
-  const [likedPosts] = useState(userLikes)
-  const [userLikedPost, setUserLikedPost] = useState();
+  // const { userLikes } = props;
+  const [likedPosts] = useState(props.userLikes)
+  const [userLikedPost, setUserLikedPost] = useState(false);
   const [userLikeId, setUserLikeId] = useState();
-  const [currentLikes, setCurrentLikes] = useState(props.likes)
+
+
+  // useFirestoreConnect([
+  //   { collection: 'likes' } 
+  // ])
+  // const likes = useSelector(state => state.firestore.ordered.likes)
 
   useEffect(() => {
     console.log(likedPosts)
-      if (userLikes !== null && userLikes.includes(postId)){
-        setUserLikedPost(true);
+    if(likedPosts === null || likedPosts === undefined){
+      return;
+    } else {
+        if(likedPosts.includes(postId)){
+          setUserLikedPost(true);
+        } else {
+          return;
+        }
       }
-    else {
-      setUserLikedPost(false);
-    }
-  },)
+  }, [likedPosts])
 
-    // const postRef = firestore.collection('posts').doc(postId);
-    // const likesRef = firestore.collection('likes');
-    // try {
-    //   const res = await firestore.runTransaction(async t => {
-    //     const doc = await t.get(postRef);
-    //     const newLikesTotal = doc.data().likes + 1;
-    //     await t.update(postRef, { likes: newLikesTotal });
-    //     return newLikesTotal;
-    //   });
-    //   console.log('it worked!', res);
-    // } catch(e){
-    //   console.log('it didnt.' + e)
-    // }
-
-  // useEffect(() => {
-  //   console.log('getting user likes ' + likedPosts)
-  // }, [likedPosts])
 
   const newLike = async() => {
     firestore.collection('likes').add(
@@ -66,7 +58,7 @@ function Post(props){
           await t.update(postRef, { likes: newTotal });
           return newTotal;
       });
-      setCurrentLikes(res);
+      // setCurrentLikes(res);
     } catch (e) {
       console.log('Transaction failure:', e);
     }
@@ -132,29 +124,36 @@ function Post(props){
     }
   }
 
-
-  return (
-    <React.Fragment>
-      {/* onClick = {() => props.whenPostClicked(props.id)} */}
-        <div className="member">
-          <img src={props.imageRef} className="img img-responsive" 
-          alt=""/>
-          <div className="member-info">
-          <div className="member-info-content">
-            <h4>@{props.userId}</h4>
-            <span>{props.timestamp}</span>
-            <p>{currentLikes}</p>
+  // if (isLoaded(likes)){
+    return (
+      <React.Fragment>
+        {/* onClick = {() => props.whenPostClicked(props.id)} */}
+          <div className="member">
+            <img src={props.imageRef} className="img img-responsive" 
+            alt=""/>
+            <div className="member-info">
+            <div className="member-info-content">
+              <h4>@{props.userId}</h4>
+              <span>{props.timestamp}</span>
+              {/* <p>{currentLikes}</p> */}
+            </div>
+            <div className="social">
+              <i className={userLikedPost ? "bi bi-heart-fill" : "bi bi-heart"} 
+              onClick={() => handleClickLike()}
+              />
+              <i className="bi bi-save2-fill"></i>
+            </div>
+            </div>
           </div>
-          <div className="social">
-            <i className={userLikedPost ? "bi bi-heart-fill" : "bi bi-heart"} 
-            onClick={() => handleClickLike()}
-            />
-            <i className="bi bi-save2-fill"></i>
-          </div>
-          </div>
-        </div>
-    </React.Fragment>
-  );
+      </React.Fragment>
+    );
+  // } else {
+  //   return (
+  //     <React.Fragment>
+  //       <h3>Loading...</h3>
+  //     </React.Fragment>
+  //   )
+  // }
 }
 
 const mapStateToProps = state => {

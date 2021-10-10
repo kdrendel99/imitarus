@@ -48,7 +48,53 @@ const UpdateProfile = (props) => {
 
   return (
     <React.Fragment>
-    {error && alert(error)}
+        <div className="real_login_form">
+          <div className="container col1 d-flex align-items-center justify-content-center">
+            <div className="row form1 w-100">
+              {/* form */}
+              <div className="col card">
+                <div className="container-fluid formcontainer">
+                <h1 className="font-weight-bold py-3">{currentUser.email}</h1>
+                <h4>Update your account</h4>
+                <form onSubmit={handleSubmit} id="login-form">
+                  <div className="form-row">
+                    <div className="col">
+                      <input type="email" placeholder="Email" className="form-control my-3 p-2" ref={emailRef}/>
+                    </div>
+                  </div>
+                  <h5>Change password</h5>
+                  <div className="form-row">
+                    <div className="col">
+                      <input type="password" placeholder="******" className="form-control my-3 p-2" ref={passwordRef}/>
+                    </div>
+                    <div className="col">
+                      <input type="password" placeholder="******" className="form-control my-3 p-2" ref={passwordConfirmRef}/>
+                    </div>
+                    <div className="form-row">
+                      <div className="col">
+                        <button type="submit" className="login-button">Submit</button>
+                      </div>
+                    </div>
+                    <div className="form-row">
+                      <div className="col login-help mt-3 mb-5">
+                        <Link to="/">
+                          <p>Cancel</p>
+                        </Link>
+
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+    {/* {error && alert(error)}
     <div className="update_profile_bg">
     <div className="padding"/>
     <div className="padding"/>
@@ -59,11 +105,6 @@ const UpdateProfile = (props) => {
             <h1 className="font-weight-bold py-3">Update Profile</h1>
             <h4>Join the community.</h4>
             <form onSubmit={handleSubmit}>
-              {/* <div className="form-row">
-                <div className="col-lg-7">
-                  <input type="name" placeholder="name" className="form-control my-3 p-2" ref={nameRef} required/>
-                </div>
-              </div> */}
 							<div className="form-row">
                 <div className="col-lg-7">
                   <input type="email" placeholder="Email" name="email" className="form-control my-3 p-2" ref={emailRef} required defaultValue={currentUser.email}/>
@@ -94,7 +135,7 @@ const UpdateProfile = (props) => {
 					</div>
         </div>
       </div>
-			</div>
+			</div> */}
     </React.Fragment>
   );
 }

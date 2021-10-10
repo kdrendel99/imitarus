@@ -4,7 +4,7 @@ import { useAuth } from './contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom'
 import * as c from './../actions/ActionTypes';
 import PropTypes from "prop-types";
-// import navAnimations from './navbar/navbar';
+import navAnimations from './navbar/navbar';
 import './navbar/navbar.css';
 
 function Header(props){
@@ -15,7 +15,7 @@ function Header(props){
   const [navbarAnimations, setAnimations] = React.useState(true);
   //prevent dropdown from initially changing to true
   const [dropdownInitial, setDropdownInitial] = React.useState(false)
-  const [user, setUser] = useState(currentUser);
+  // const [user, setUser] = useState(currentUser);
 
   const useFocus = () => {
     const dropdownRef = useRef(null)
@@ -27,17 +27,22 @@ function Header(props){
   const [dropdownLoaded, setDropdownLoaded] = useFocus();
 
 
-  // useEffect(() => {
-  //   if(navbarAnimations){
-  //     if (navbarAnimations){
-  //       navAnimations();
-  //     }
-  //   }
-  // })
+  useEffect(() => {
+    if(navbarAnimations){
+      if (navbarAnimations){
+        navAnimations();
+      }
+    }
+  })
+
 
   // useEffect(() => {
-  //   console.log(user)
-  // }, [user])
+  //   if(currentUser !== null){
+  //     const userEmailParse = currentUser.email.toString().split('@');
+  //     const username = userEmailParse[0]
+  //     setUser(username)
+  //   }
+  // })
 
   const toggleDropdown = () => {
     let currentlyLoadedDropdown = `${dropdownLoaded.current.className}`;
@@ -51,8 +56,6 @@ function Header(props){
   }
 
   useEffect(() => {
-    console.log('dropdown was changed')
-    console.log(dropdown)
     //Only runs on the first load. Prevents initial load from toggling dropdown to true.
     if (!dropdownInitial){
       setDropdownInitial(true);
@@ -97,15 +100,15 @@ function Header(props){
                 <li>
                   <Link to="/" onClick={() => resetSelected()}>Home</Link>
                 </li>
-                <li>
-                  <Link to="/signup" onClick={() => resetSelected()}>Register</Link>
-                </li>
+
+
+                {!currentUser?<li><Link to="/signup" onClick={() => resetSelected()}>Register</Link></li>:null}
 
                 {!currentUser?<li><Link to="/login" onClick={() => resetSelected()}>Log in</Link></li>:null}
 
-                {currentUser?<li><Link to="/update-profile" onClick={() => resetSelected()}>PROF</Link></li>: null}
+                {currentUser?<li><Link to="/update-profile" onClick={() => resetSelected()}>Profile</Link></li>: null}
 
-                {currentUser?<li><a onClick = {() => handleLogout()} className="login-btn" onClick={() => resetSelected()}>Log out</a></li>:null}
+                {currentUser?<li><a onClick = {() => handleLogout()} className="login-btn">Log out</a></li>:null}
 
                 {/* <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#contact">Contact</a></li> */}
             </ul>

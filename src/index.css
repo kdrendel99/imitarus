@@ -106,7 +106,7 @@
 
 .new_post_form .backtoprompt:hover {
   color: #555555;
-  background-color: #fafafa;
+  background-color: #dadada;
   /* border: 3px solid #333333; */
   border-radius:10px;
 }
@@ -115,7 +115,6 @@
   background: #ededf1;
   cursor:pointer;
   color: #919191;
-  display: inline-block;
   height: 40px;
   width: 120%;
   padding-top:8px;
@@ -127,10 +126,10 @@
 }
 
 .new_post_form .fileupload:hover {
-/* color: #555555; */
-/* background-color: #fafafa; */
-/* border: 3px solid #333333; */
-border-radius:10px;
+  color: #555555;
+  background-color: #dadada;
+  /* border: 3px solid #333333; */
+  border-radius:10px;
 }
 
 .new_post_form .share{
@@ -139,6 +138,7 @@ border-radius:10px;
   height: 40px;
   width: 120%;
   margin-top: 48px;
+  /* margin-right: 10%; */
   border:5px #d8dee1;
   /* border: 3px solid #a9a9a9; */
   border-radius:8px;
@@ -147,47 +147,9 @@ border-radius:10px;
 
 .new_post_form .share:hover {
 color: #555555;
-background-color: #fafafa;
+background-color: #dadada;
 /* border: 3px solid #333333; */
 border-radius:10px;
-}
-
-
-
-
-.new_post_form .form-control:clicked{
-  color: #555555!important;
-  border: 3px solid #333333!important;
-  border-radius:10px!important;
-}
-
-.new_post_form .login-button {
-  background: #ffffff;
-  color: #919191;
-  height: 40px;
-  width: 100%;
-  margin-top: -25px;
-  border: 3px solid #a9a9a9;
-  border-radius:5px;
-  transition: all ease-in-out 500ms;
-}
-.new_post_form .login-button:hover {
-  color: #555555;
-  background-color: #fafafa;
-  border: 3px solid #333333;
-  border-radius:10px;
-}
-.new_post_form .login-button.clicked {
-  color: #555555;
-}
-.new_post_form .login-button.clicked:hover {
-  transform: none;
-}
-.new_post_form .login-button.clicked.success {
-  color: #2ecc71;
-}
-.new_post_form .login-button.clicked.error {
-  color: #e74c3c;
 }
 
 .new_post_form .login-help a{
@@ -400,6 +362,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 .navbar a:hover, .navbar li:hover > a {
   color: #90b493;
   text-decoration: underline;
+  cursor: pointer;
   transition: 1s;
 }
 .navbar .getstarted, .navbar .getstarted:focus {
@@ -1046,11 +1009,6 @@ section {
   max-width: 100%;
 }
 
-/* this is the card behind the login form */
-/* .real_login_form .card{
-  padding-left: 10;
-} */
-
 .real_login_form .form1{
   max-height: 75%;
   max-width: 800px;
@@ -1092,9 +1050,14 @@ section {
   transition: all ease-in-out 500ms;
 }
 .real_login_form .login-button:hover {
-  color: #555555;
+  /* color: #555555;
   background-color: #fafafa;
   border: 3px solid #333333;
+  border-radius:10px; */
+
+  color: #fafafa;
+  background-color: #212529;
+  border: 3px solid #fafafa;
   border-radius:10px;
 }
 .real_login_form .login-button.clicked {
@@ -1189,37 +1152,7 @@ a:hover {
   padding: 10px 20px;
 }
 
-/*=== 5. Login Button ===*/
-.login-form-1 .login-button {
-  position: absolute;
-  right: -25px;
-  top: 50%;
-  background: #ffffff;
-  color: #999999;
-  padding: 11px 0;
-  width: 50px;
-  height: 50px;
-  margin-top: -25px;
-  border: 5px solid #efefef;
-  border-radius: 50%;
-  transition: all ease-in-out 500ms;
-}
-.login-form-1 .login-button:hover {
-  color: #555555;
-  transform: rotate(450deg);
-}
-.login-form-1 .login-button.clicked {
-  color: #555555;
-}
-.login-form-1 .login-button.clicked:hover {
-  transform: none;
-}
-.login-form-1 .login-button.clicked.success {
-  color: #2ecc71;
-}
-.login-form-1 .login-button.clicked.error {
-  color: #e74c3c;
-}
+
 /*=== 6. Form Invalid ===*/
 label.form-invalid {
   position: absolute;

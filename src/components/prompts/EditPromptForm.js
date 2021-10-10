@@ -17,6 +17,11 @@ function EditPromptForm(props){
 
   return (
     <React.Fragment>
+      <div className="padding"/>
+      <div className="padding"/>
+      <div className="padding"/>
+      <div className="padding"/>
+
       <form onSubmit={handleEditPromptFormSubmission}>
         <input
           type='text'

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, Component } from "react";
 import Post from './../posts/Post'
 import PropTypes from "prop-types";
-// import * from 'firebase/firestore';
 import { withFirestore, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import * as c from '../../actions/ActionTypes';
 import { connect } from 'react-redux';
 import {useAuth} from '../contexts/AuthContext';
+import { useHistory } from 'react-router-dom';
 
 
 import Masonry from "react-masonry-css";
@@ -23,6 +23,7 @@ function PromptDetail(props){
   const [likedPosts, setLikedPosts] = useState(userLikes)
   const [currPromptId, setCurrPromptId] = useState(prompt.id);
   const [promptPosts, setPromptPosts] = useState([]);
+  const history = useHistory();
 
   const dispatchUserLikes = (likesArr) => {
     const { dispatch } = props;
@@ -34,6 +35,7 @@ function PromptDetail(props){
   }
 
   const handleGetUserLikes = async () => {
+    // console.log('get user likes was called')
     if (!currentUser){
       return
     }
@@ -46,7 +48,7 @@ function PromptDetail(props){
       snapshot.forEach((likedPost) => {
         const data = likedPost.data()
         const likeRef = data.postId.toString()
-        // const likeId = likedPost.id.toString()
+        // console.log('like: ' + likeRef);
         likedPostArr.push(likeRef)
       })
       dispatchUserLikes(likedPostArr) 
@@ -57,14 +59,13 @@ function PromptDetail(props){
     handleGetUserLikes()
   },[])
 
-  useEffect(() => {
-    console.log(likedPosts)
-  }, [])
+  // useEffect(() => {
+  //   console.log(likedPosts)
+  // }, [])
 
   // //get all posts for this prompt
   useEffect(() => {
-    // async function getAllPosts(){
-      console.log('get all posts')
+      // console.log('get all posts was called')
       const postArr = [];
 
       const postsRef = firestore.collection('posts').where('promptId', '==', currPromptId)
@@ -90,9 +91,15 @@ function PromptDetail(props){
           setPromptPosts(postArr);
       })
       return () => unsubscribe()
-    // }
-    // getAllPosts();
   }, [currPromptId])
+
+  const authorize = () => {
+    if (currentUser !== null){
+      onClickingNewPost()
+    } else {
+      history.push("/signup")
+    }
+  }
 
 
 
@@ -202,7 +209,7 @@ function PromptDetail(props){
         </div>
       </section>
 
-    <button onClick={() => onClickingNewPost()}>Upload new post</button>
+    <button onClick={() => authorize()}>Upload new post</button>
 
     <button onClick={ props.onClickingEdit }>Update Prompt</button>
     <button onClick={()=> onClickingDelete(prompt.id) }>Delete Prompt</button> 

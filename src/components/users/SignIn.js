@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import { useAuth } from '../contexts/AuthContext'
 import {Link, useHistory} from 'react-router-dom';
 import firebase from "firebase/app";
@@ -12,6 +12,7 @@ const SignIn = (props) => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false);
   const history = useHistory()
+  const {currentUser} = useAuth();
 
   async function handleSubmit(e){
     e.preventDefault()
@@ -28,6 +29,14 @@ const SignIn = (props) => {
     setLoading(false)
   }
 
+  // useEffect(() => {
+  //   if(currentUser !== null){
+  //     history.push("/")
+  //   } else {
+  //     alert('Unable to log you in.')
+  //   }
+  // })
+
     // const showError = () => {
     //   return <div className="alert-danger">error</div>
     // }
@@ -35,6 +44,7 @@ const SignIn = (props) => {
 
   return (
     <React.Fragment>
+      {error && alert(error)}
       <div className="real_login_form">
           <div className="container col1 d-flex align-items-center justify-content-center">
 
@@ -50,19 +60,19 @@ const SignIn = (props) => {
                 <div className="container-fluid formcontainer">
                 <h1 className="font-weight-bold py-3">Login</h1>
                 <h4>Sign into your account</h4>
-                <form>
+                <form onSubmit={handleSubmit} id="login-form">
                   <div className="form-row">
                     <div className="col">
-                      <input type="email" placeholder="Email" className="form-control my-3 p-2"/>
+                      <input type="email" placeholder="Email" className="form-control my-3 p-2" ref={emailRef}/>
                     </div>
                   </div>
                   <div className="form-row">
                     <div className="col">
-                      <input type="password" placeholder="******" className="form-control my-3 p-2"/>
+                      <input type="password" placeholder="******" className="form-control my-3 p-2" ref={passwordRef}/>
                     </div>
                     <div className="form-row">
                       <div className="col">
-                        <button type="button" className="login-button">Login</button>
+                        <button type="submit" className="login-button">Login</button>
                       </div>
                     </div>
                     <div className="form-row">
@@ -79,7 +89,6 @@ const SignIn = (props) => {
                   </div>
                 </form>
               </div>
-
               </div>
             </div>
           </div>

@@ -10,6 +10,7 @@ export default (state = initialState, action) => {
     case c.GET_USER_LIKES:
       // console.log(userLikes.name)
       // console.log("in reducer")
+
       return Object.assign({}, state, {
         userLikes: userLikes
       })
