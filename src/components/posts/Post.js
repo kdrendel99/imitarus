@@ -17,7 +17,7 @@ function Post(props){
 
   // const [userLikeId, setUserLikeId] = useState();
   const [isLoading, setIsLoading] = useState(false)
-  const [like, setLike] = useState(false)
+  const [like, setLike] = useState()
   const [likeId, setLikedId] = useState();
 
 
@@ -111,67 +111,57 @@ function Post(props){
 
 
 
-  const addLike = async(value) => {
-      // handleAddingLike(postId)
-      const data = {
-        postId: postId,
-        userId: currentUser.uid,
+
+
+
+
+  const updateLike = async() => {
+    const postRef = firestore.collection('posts').doc(postId)
+    const likeExists = firestore.collection('likes').doc(`${postId + currentUser.uid}`);
+    likeExists.get().then((doc) => {
+      if (doc.exists){
+
+        const res = firestore.collection('likes').doc(`${postId + currentUser.uid}`).delete()
+
+        postRef.update(
+          'likes', firestore.FieldValue.increment(-1)
+        ).then(() => {
+          return postRef.get();
+        }).then(doc => {
+          setLikeTotal(doc.get('likes'))
+          setIsLoading(false)
+        });
+      } else {
+        const data = {
+          postId: postId,
+          userId: currentUser.uid,
+        }
+        const res = firestore.collection('likes').doc(`${postId + currentUser.uid}`).set(data);
+
+        postRef.update(
+          'likes', firestore.FieldValue.increment(1)
+        ).then(() => {
+          return postRef.get();
+        }).then(doc => {
+          setLikeTotal(doc.get('likes'))
+          setIsLoading(false)
+        });
       }
-
-      const res = await firestore.collection('likes').doc(`${postId + currentUser.uid}`).set(data);
-
-    const postRef = firestore.collection('posts').doc(postId);
-    // postRef.update({ likes: FieldValue.increment(value)});
-    postRef.update(
-      'likes', firestore.FieldValue.increment(value)
-    ).then(() => {
-      return postRef.get();
-    }).then(doc => {
-      setLikeTotal(doc.get('likes'))
-      setUserLikedPost(true);
-      setIsLoading(false)
-    });
-  }
-
-  const removeLike = async(value) => {
-      // handleRemovingLike(postId)
-      const res = await firestore.collection('likes').doc(`${postId + currentUser.uid}`).delete()
+    })
   }
 
 
-  // const handleClickLike = () => {
-  //   setIsLoading(true)
-  //   if (currentUser !== null){
-  //       if(userLikedPost === false){
-  //         //handle like here
-  //         updateLike(1)
-  //       } else if (userLikedPost === true){
-  //         updateLike(-1)
-  //       }
-  //     } else {
-  //       setIsLoading(false)
-  //       history.push("/")
-  //     }
-  //   }     
+
+  const handleClickLike = () => {
+    setIsLoading(true)
+    if (currentUser !== null){
+        updateLike();
+      } else {
+        setIsLoading(false)
+        history.push("/")
+      }
+    }     
     
-
-
-
-    const handleClickLike = () => {
-          addLike(1)
-    } 
-
-    const handleClickUnlike = () => {
-      removeLike(-1)
-    }
-
-
-
-
-
-
-
-
 
 
     return (
@@ -191,7 +181,6 @@ function Post(props){
               <i className={like ? "bi bi-heart-fill" : "bi bi-heart"} disable={isLoading}
               onClick={() => handleClickLike()}
               />
-              <i className={like ? "bi bi-heart-fill" : "bi bi-heart"} onClick={() => handleClickUnlike()}></i>
             </div>
             </div>
           </div>
