@@ -1,0 +1,88 @@
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+#hero {
+  background: url("./../../images/greek-statues.jpg") repeat scroll center center/cover;
+  height: 90vh;
+  width: 100%;
+  background-position: center;
+}
+
+#hero h1 {
+  margin: 0;
+  font-size: 60px;
+  font-family: 'Italiana';
+  letter-spacing: .05em;
+  font-weight: 100;
+  line-height: 56px;
+  color: #a5a7a8;
+}
+#hero h2 {
+  color: #a5a7a8;
+  margin: 15px 0 0 0;
+  font-size: 24px;
+  font-family: 'sans-serif'
+}
+#hero .btn-get-started a{
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 15px;
+  border: .15em solid #a5a7a8;
+  margin-top: 30px;
+  color: #a5a7a8;
+  background-color: black;
+}
+#hero .btn-get-started:hover a{
+  background: #9dc183;
+  color: #fff;
+  border: 1px solid #a5a7a8;
+  transition: all 0.3s ease-in-out;
+}
+
+#hero .animated {
+  float: left;
+  animation: up-down 4s ease-in-out infinite alternate-reverse both;
+}
+
+@media (max-width: 991px) {
+  #hero {
+    height: calc(100vh - 72px);
+  }
+  #hero .animated {
+    -webkit-animation: none;
+    animation: none;
+  }
+  #hero .hero-img {
+    text-align: center;
+  }
+  #hero .hero-img img {
+    width: 50%;
+  }
+}
+@media (max-width: 768px) {
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  #hero h2 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  #hero .hero-img img {
+    width: 70%;
+  }
+}
+@media (max-width: 575px) {
+  #hero .hero-img img {
+    width: 80%;
+  }
+}
+@media (max-height: 600px) {
+  #hero {
+    height: 120vh;
+  }
+}

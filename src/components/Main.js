@@ -1,17 +1,11 @@
 import React from 'react';
-import Home from './Home';
+import Home from './home/Home';
 import PromptDetail from './prompts/PromptDetail';
 import NewPostForm from './posts/NewPostForm';
 import EditPromptForm from './prompts/EditPromptForm';
-// import PropTypes from "prop-types";
-// import * as a from '../actions';
 import * as c from './../actions/ActionTypes';
 import { connect } from 'react-redux';
-import { withFirestore, isLoaded } from 'react-redux-firebase';
-
-// import { firestore } from 'firebase';
-
-
+import { withFirestore} from 'react-redux-firebase';
 
 class Main extends React.Component{
   constructor(props) {
@@ -55,7 +49,6 @@ class Main extends React.Component{
       const firestorePrompt = {
         name: prompt.get("name"),
         timestamp: (prompt.get("timestamp").toDate().toString()),
-        // posts: prompt.get("posts"),
         id: prompt.id
       }
       this.dispatchSelectedPrompt(firestorePrompt);
@@ -81,32 +74,6 @@ class Main extends React.Component{
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
-    // const auth = this.props.firebase.auth();
-    // if (!isLoaded(auth)) {
-    //   return (
-    //     <React.Fragment>
-    //       <h1>Loading...</h1>
-    //     </React.Fragment>
-    //   )
-    // }
-    // if ((isLoaded(auth)) && (auth.currentUser == null)) {
-    //   return (
-    //     <React.Fragment>
-    //       <h1>You must be signed in to access the discussion board.</h1>
-    //     </React.Fragment>
-    //   )
-    // } 
-    // if ((isLoaded(auth)) && (auth.currentUser != null)){
-
-      // if (this.props.showSignupForm){
-      //   currentlyVisibleState = <SignUp hideSignupForm = {this.toggleSignupForm}
-      //   />
-      // }
-
-      // else if (this.props.showLoginForm){
-      //   currentlyVisibleState = <SignIn hideLoginForm = {this.toggleLoginForm}
-      //   />
-      // }
 
       if (this.state.editing) {      
         currentlyVisibleState = <EditPromptForm prompt = {this.props.selectedPrompt} onEditPrompt = {this.handleEditingPromptInList} />
@@ -144,11 +111,6 @@ class Main extends React.Component{
     );
   }
 }
-
-// Home.propTypes = {
-//   selectedPrompt: PropTypes.object
-// };
-
 
 const mapStateToProps = state => {
   return {

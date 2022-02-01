@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import React, { useEffect, useRef, useState } from "react";
-import { useAuth } from './contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom'
-import * as c from './../actions/ActionTypes';
-import PropTypes from "prop-types";
-import navAnimations from './navbar/navbar';
-import './navbar/navbar.css';
+import * as c from '../../actions/ActionTypes';
+import navAnimations from './navbar';
+import '../navbar/navbar.css';
 
 function Header(props){
   const [error, setError] = useState('')
@@ -15,7 +14,6 @@ function Header(props){
   const [navbarAnimations, setAnimations] = React.useState(true);
   //prevent dropdown from initially changing to true
   const [dropdownInitial, setDropdownInitial] = React.useState(false)
-  // const [user, setUser] = useState(currentUser);
 
   const useFocus = () => {
     const dropdownRef = useRef(null)
@@ -35,24 +33,15 @@ function Header(props){
     }
   })
 
-
-  // useEffect(() => {
-  //   if(currentUser !== null){
-  //     const userEmailParse = currentUser.email.toString().split('@');
-  //     const username = userEmailParse[0]
-  //     setUser(username)
-  //   }
-  // })
-
   const toggleDropdown = () => {
     let currentlyLoadedDropdown = `${dropdownLoaded.current.className}`;
     currentlyLoadedDropdown = '.' + currentlyLoadedDropdown.substring(11);
     const navbar = document.querySelector('#navbar');
     let dropdownIcon = document.querySelector('.mobile-nav-toggle')
 
-      navbar.classList.toggle('navbar-mobile')
-      dropdownIcon.classList.toggle('bi-list')
-      dropdownIcon.classList.toggle('bi-x')
+    navbar.classList.toggle('navbar-mobile')
+    dropdownIcon.classList.toggle('bi-list')
+    dropdownIcon.classList.toggle('bi-x')
   }
 
   useEffect(() => {
@@ -72,12 +61,11 @@ function Header(props){
       type: c.REMOVE_SELECTED_PROMPT
     }
     dispatch(action);
-    // setDropdown(false);
+    setDropdown(false);
   }
 
   async function handleLogout() {
     setError('')
-
     try {
       await logout()
       history.push("/")
@@ -94,23 +82,13 @@ function Header(props){
         <div className="container-fluid g-4 d-flex justify-content-between">
 
         <h1 className="logo pt-1"><span onClick={() => resetSelected()}>IMITARUS</span></h1>
-          {/* <h1 className="logo"><a href="index.html">Karlson Drendel</a></h1> */}
           <nav id="navbar" className="navbar" >
             <ul>
-                <li>
-                  <Link to="/" onClick={() => resetSelected()}>Home</Link>
-                </li>
-
-
-                {!currentUser?<li><Link to="/signup" onClick={() => resetSelected()}>Register</Link></li>:null}
-
-                {!currentUser?<li><Link to="/login" onClick={() => resetSelected()}>Log in</Link></li>:null}
-
-                {currentUser?<li><Link to="/update-profile" onClick={() => resetSelected()}>Profile</Link></li>: null}
-
-                {currentUser?<li><a onClick = {() => handleLogout()} className="login-btn">Log out</a></li>:null}
-
-                {/* <li><a onClick = {() => resetSelected()} className="nav-link scrollto" href="#contact">Contact</a></li> */}
+              <li><Link to="/" onClick={() => resetSelected()}>Home</Link></li>
+              {!currentUser?<li><Link to="/signup" onClick={() => resetSelected()}>Register</Link></li>:null}
+              {!currentUser?<li><Link to="/login" onClick={() => resetSelected()}>Log in</Link></li>:null}
+              {currentUser?<li><Link to="/update-profile" onClick={() => resetSelected()}>Profile</Link></li>: null}
+              {currentUser?<li><a onClick = {() => handleLogout()} className="login-btn">Log out</a></li>:null}
             </ul>
             <i className="bi bi-list mobile-nav-toggle" 
             ref={dropdownLoaded} onLoad={setDropdownLoaded} 

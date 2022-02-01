@@ -2,8 +2,9 @@ import React, {useState, useRef, useEffect} from "react";
 import { useAuth } from '../contexts/AuthContext'
 import {Link, useHistory} from 'react-router-dom';
 import firebase from "firebase/app";
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import david from '../../images/david2.jpeg';
+import './users.css'
 
 const SignIn = (props) => {  
   const emailRef = useRef()
@@ -29,43 +30,29 @@ const SignIn = (props) => {
     setLoading(false)
   }
 
-  // useEffect(() => {
-  //   if(currentUser !== null){
-  //     history.push("/")
-  //   } else {
-  //     alert('Unable to log you in.')
-  //   }
-  // })
-
-    // const showError = () => {
-    //   return <div className="alert-danger">error</div>
-    // }
-    // container-fluid g-4 d-flex justify-content-between
-
   return (
     <React.Fragment>
       {error && alert(error)}
       <div className="real_login_form">
-          <div className="container col1 d-flex align-items-center justify-content-center">
+        <div className="container col1 d-flex align-items-center justify-content-center">
 
-            <div className="row form1 w-85">
-              {/* david  */}
-              <div className="col g-0 d-none d-sm-block col-sm-6">
-                <img src={david} className="img-fluid" alt=""/>
-              </div>
-              
-              {/* form */}
-              <div className="col card">
-                
-                <div className="container-fluid formcontainer">
-                <h1 className="font-weight-bold py-3">Login</h1>
-                <h4>Sign into your account</h4>
+          <div className="row form1 w-85">
+            <div className="col g-0 d-none d-sm-block col-sm-6">
+              <img src={david} className="img-fluid" alt=""/>
+            </div>
+
+            <div className="col card">
+
+              <div className="container-fluid formcontainer">
+              <h1 className="font-weight-bold py-3">Login</h1>
+              <h4>Sign into your account</h4>
                 <form onSubmit={handleSubmit} id="login-form">
-                  <div className="form-row">
-                    <div className="col">
-                      <input type="email" placeholder="Email" className="form-control my-3 p-2" ref={emailRef}/>
-                    </div>
+
+                <div className="form-row">
+                  <div className="col">
+                    <input type="email" placeholder="Email" className="form-control my-3 p-2" ref={emailRef}/>
                   </div>
+                </div>
                   <div className="form-row">
                     <div className="col">
                       <input type="password" placeholder="******" className="form-control my-3 p-2" ref={passwordRef}/>
@@ -89,10 +76,10 @@ const SignIn = (props) => {
                   </div>
                 </form>
               </div>
-              </div>
             </div>
           </div>
         </div>
+      </div>
     </React.Fragment>
   );
 }

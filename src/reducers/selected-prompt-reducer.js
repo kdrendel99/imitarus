@@ -8,8 +8,6 @@ export default (state = initialState, action) => {
   const { prompt } = action;
   switch (action.type){
     case c.ADD_SELECTED_PROMPT:
-      // console.log(prompt.name)
-      // console.log("in reducer")
       return Object.assign({}, state, {
         selectedPrompt: prompt
       })
@@ -17,8 +15,6 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         selectedPrompt: null
       })
-      // default:
-      //   return state;
   }
   return state;
 };

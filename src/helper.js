@@ -3,7 +3,6 @@ import Swiper from 'swiper/swiper-bundle.min';
 import Typed from "typed.js";
 import Isotope from 'isotope-layout';
 import GLightbox from 'glightbox';
-// import AOS from 'aos';
 
 const runAnimations = function() {
   // Easy selector helper function
@@ -34,9 +33,6 @@ const runAnimations = function() {
     el.addEventListener('scroll', listener)
   }
 
-  // Mobile nav toggle went here
-
-
   // Back to top button
   let backtotop = select('.back-to-top')
   if (backtotop) {
@@ -65,60 +61,6 @@ const runAnimations = function() {
     });
   }
 
-  // Testimonials slider
-  new Swiper('.services-slider', {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    slidesPerView: 'auto',
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 20
-      },
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 20
-      },
-      1200: {
-        slidesPerView: 4,
-        spaceBetween: 20
-      }
-    }
-  });
-
-  // Porfolio isotope and filter
-  // window.addEventListener('load', () => {
-  //   let portfolioContainer = select('.portfolio-container');
-  //   if (portfolioContainer) {
-  //     let portfolioIsotope = new Isotope(portfolioContainer, {
-  //       itemSelector: '.portfolio-item',
-  //       layoutMode: 'fitRows'
-  //     });
-
-  //     let portfolioFilters = select('#portfolio-flters li', true);
-
-  //     on('click', '#portfolio-flters li', function(e) {
-  //       e.preventDefault();
-  //       portfolioFilters.forEach(function(el) {
-  //         el.classList.remove('filter-active');
-  //       });
-  //       this.classList.add('filter-active');
-
-  //       portfolioIsotope.arrange({
-  //         filter: this.getAttribute('data-filter')
-  //       });
-  //     }, true);
-  //   }
-  // });
 
   // Initiate portfolio lightbox 
   const portfolioLightbox = GLightbox({
@@ -128,7 +70,7 @@ const runAnimations = function() {
   /**
    * Portfolio details slider
    */
-   new Swiper('.portfolio-details-slider', {
+  new Swiper('.portfolio-details-slider', {
     speed: 400,
     loop: true,
     autoplay: {
@@ -141,50 +83,6 @@ const runAnimations = function() {
       clickable: true
     }
   });
-
-  /**
-   * Testimonials slider
-   */
-   new Swiper('.services-slider', {
-    speed: 600,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    slidesPerView: 'auto',
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    },
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 20
-      },
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 20
-      },
-      1200: {
-        slidesPerView: 4,
-        spaceBetween: 20
-      }
-    }
-  });
-
-  /**
-   * Animation on scroll
-   */
-  // window.addEventListener('load', () => {
-  //   AOS.init({
-  //     duration: 1000,
-  //     easing: "ease-in-out",
-  //     once: true,
-  //     mirror: false
-  //   });
-  // });
 }
 
 export default runAnimations;

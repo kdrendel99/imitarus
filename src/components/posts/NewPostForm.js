@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import firebase from '../../firebase';
 import 'firebase/firestore';
-import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase'
 import { useAuth } from '../contexts/AuthContext';
-import { useHistory } from 'react-router-dom';
-// import placeholder from '../../images/upload-placeholder.jpeg';
 
 function NewFormPost(props){
   const firestore = useFirestore();
   const { currentUser } = useAuth();
-  const history = useHistory();
 
   useFirestoreConnect([
     { collection: 'posts' }
@@ -21,21 +18,12 @@ function NewFormPost(props){
   const [downloadUrl, setDownloadUrl] = useState(null);
   const [progress, setProgress] = useState(0);
   const [selectedPrompt, setSelectedPrompt] = useState(prompt.id);
-  const [userId, setUserId] = useState(null);
+
 
 
   useEffect(() => {
     addPostToPostCollection();
   }, [downloadUrl])
-
-  useEffect(() => {
-    if (currentUser !== null){
-      const userName = currentUser.email.split('@');
-      console.log(userName[0])
-    } else {
-      console.log('you need to sign in')
-    }
-  })
 
   const handleChange = e => {
     if (e.target.files[0]){
@@ -46,6 +34,10 @@ function NewFormPost(props){
   const addPostToPostCollection = () => {
     if (currentUser !== null){
       const userName = currentUser.email.split('@');
+      if(downloadUrl === null){
+        console.log('image invalid')
+        return;
+      }
       firestore.collection('posts').add(
         {
           imageRef: downloadUrl,
@@ -60,6 +52,7 @@ function NewFormPost(props){
 
   const handleUpload = (e) => {
     e.preventDefault();
+    // setFinished(false)
 
     const file = uploadedImage;
     const storage = firebase.storage();
@@ -81,19 +74,13 @@ function NewFormPost(props){
     );
   }
 
-  useEffect(() => {
-    if(downloadUrl !== null)
-      history.push("/")
-  })
-
   return (
     <React.Fragment>
-    {/* <span style={progress === 100? {color:"green"}: null}>{progress}%</span>  */}
     <form onSubmit={handleUpload}>
-      <div className="container-fluid new_post_form">
+      <div className="container-fluid new-post-form">
         <div className="row justify-content-center">
-        <div className="col test g-0">
-          <div className="row-fluid james justify-content-center">
+        <div className="col main g-0">
+          <div className="row-fluid upload justify-content-center">
             <img
               className="ref"
               src={uploadedImage? URL.createObjectURL(uploadedImage) : null}
@@ -102,16 +89,16 @@ function NewFormPost(props){
             />
             <div className="container-fluid card px-3">
               <div className="row">
-                <div className="col poptarts">
+                <div className="col">
                   <h1 className="prompt_heading px-3">"{prompt.name}"</h1>
                   <div className="row justify-content-around">
 
                     <div className="col-sm-3">
-                      <button onClick={() => props.returnHome()} type="button" className="backtoprompt">Back</button>
+                      <button onClick={() => props.returnHome()} type="button"  className="backtoprompt">Back</button>
                     </div>
 
                     <div className="col-sm-3 py-5">
-                      <label htmlFor="file" className="fileupload">
+                      <label htmlFor="file" className="fileupload" >
                           Upload
                       </label>
                       <input id="file" type="file" style={{visibility:"hidden"}}onChange={handleChange}/>
@@ -133,16 +120,6 @@ function NewFormPost(props){
     </React.Fragment>
   );
 };
-
-{/* <div className="form-row">
-<div className="col">
-  <button type="button" className="login-button">Login</button>
-</div>
-<div className="form-row">
-  <div className="col">
-    <button type="button" className="login-button">Login</button>
-  </div>
-</div> */}
 
 export default NewFormPost;
 

@@ -1,10 +1,10 @@
 import { useAuth } from '../contexts/AuthContext'
 import React, {useState, useRef} from "react";
-// import firebase from "firebase/app";
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import accountart from '../../images/account_art.png';
 import { Link, useHistory } from 'react-router-dom';
 import { useFirestore } from 'react-redux-firebase';
+import './users.css'
 
 
 const SignUp = (props) => {  
@@ -35,7 +35,6 @@ const SignUp = (props) => {
             uid: registeredUser.user.uid,
             name: nameRef.current.value,
             avatar: 'gs://imitarus.appspot.com/default-profile-photo'
-            // likedPosts
           }
         )
       })
@@ -43,17 +42,14 @@ const SignUp = (props) => {
     } catch {
       setError('Failed to create an account')
     }
-
     setLoading(false)
   }
 
-    // const showError = () => {
-    //   return <div className="alert-danger">error</div>
-    // }
 
   return (
     <React.Fragment>
     {error && alert(error)}
+    <section>
     <div className="sign_up_bg">
     <div className="padding"/>
     <div className="padding"/>
@@ -89,7 +85,7 @@ const SignUp = (props) => {
                   </div>
                 </div>
                 <p>Already have an account? 
-                  <Link to="/login">Log In</Link>
+                  <Link to="/login" className="mx-2 text-decoration-none login-btn">Log In</Link>
                 </p>
               </div>
             </form>
@@ -100,60 +96,9 @@ const SignUp = (props) => {
         </div>
       </div>
 			</div>
+      </section>
     </React.Fragment>
   );
 }
 
 export default SignUp
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// {/* <!-- FORGOT PASSWORD FORM --> */}
-// <div class="text-center" style={{padding: "50px 0"}}>
-// 	<div class="logo">forgot password</div>
-// 	{/* <!-- Main Form --> */}
-// 	<div class="login-form-1">
-// 		<form id="forgot-password-form" class="text-left">
-// 			<div class="etc-login-form">
-// 				<p>When you fill in your registered email address, you will be sent instructions on how to reset your password.</p>
-// 			</div>
-// 			<div class="login-form-main-message"></div>
-// 			<div class="main-login-form">
-// 				<div class="login-group">
-// 					<div class="form-group">
-// 						<label for="fp_email" class="sr-only">Email address</label>
-// 						<input type="text" class="form-control" id="fp_email" name="fp_email" placeholder="email address"/>
-// 					</div>
-// 				</div>
-// 				<button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
-// 			</div>
-// 			<div class="etc-login-form">
-// 				<p>already have an account? <a href="#">login here</a></p>
-// 				<p>new user? <a href="#">create new account</a></p>
-// 			</div>
-// 		</form>
-// 	</div>
-// 	{/* <!-- end:Main Form --> */}
-// </div>

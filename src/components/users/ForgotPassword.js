@@ -1,9 +1,10 @@
 import React, {useState, useRef} from "react";
-import { useAuth } from './contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext'
 import {Link} from 'react-router-dom';
 import firebase from "firebase/app";
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import accountart from '../images/account_art.png';
+// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import accountart from '../../images/account_art.png';
+import './users.css'
 
 export default function ForgotPassword(){
   const emailRef = useRef()
@@ -42,11 +43,6 @@ export default function ForgotPassword(){
           <h1 className="font-weight-bold py-3">Password reset</h1>
           <h4>Let's get this sorted out.</h4>
           <form onSubmit={handleSubmit}>
-            {/* <div className="form-row">
-              <div className="col-lg-7">
-                <input type="name" placeholder="name" className="form-control my-3 p-2" ref={nameRef} required/>
-              </div>
-            </div> */}
             <div className="form-row">
               <div className="col-lg-7">
                 <input type="email" placeholder="Email" name="email" className="form-control my-3 p-2" ref={emailRef} required/>

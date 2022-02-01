@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { useFirestore } from 'react-redux-firebase';
+import './prompt.css'
 
 function EditPromptForm(props){
   const { prompt } = props;
