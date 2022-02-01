@@ -5,9 +5,11 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #212529;
-  margin-bottom: 600px;
-  display: flex;
-  flex-direction: column;
+}
+
+html, body {
+  margin: 0; 
+  height: 100%; 
 }
 
 a {

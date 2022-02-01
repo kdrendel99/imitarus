@@ -45,7 +45,7 @@ const UpdateProfile = (props) => {
 
   return (
     <React.Fragment>
-      <div className="real_login_form">
+      <div className="login-form update_profile_background">
         <div className="container col1 d-flex align-items-center justify-content-center">
           <div className="row form1 w-100">
             {/* form */}

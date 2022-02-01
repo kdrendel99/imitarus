@@ -6,42 +6,42 @@
   background-color: #b5bcc2;
 }
 
-.real_login_form{
+.login-form{
   padding-top: 30px;
   height: 100vh;
   background-color: lightgrey;
 }
 
-.real_login_form .formcontainer{
+.login-form .formcontainer{
   padding-top: 15%;
   max-width: 100%;
 }
 
-.real_login_form .form1{
+.login-form .form1{
   max-height: 75%;
   max-width: 800px;
 }
 
-.real_login_form .col1{
+.login-form .col1{
   height: 100vh;
 }
 
-.real_login_form .row {
+.login-form .row {
   border-radius: 30px;
   box-shadow: 12px 12px 22px grey;
   overflow: hidden;
 }
 
-.real_login_form .inputarea{
+.login-form .inputarea{
   width: 100%!important;
 }
 
-.real_login_form img{
+.login-form img{
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
 }
 
-.real_login_form .login-button {
+.login-form .login-button {
   background: #ffffff;
   color: #919191;
   height: 40px;
@@ -51,18 +51,18 @@
   border-radius:5px;
   transition: all ease-in-out 500ms;
 }
-.real_login_form .login-button:hover {
+.login-form .login-button:hover {
   color: #fafafa;
   background-color: #212529;
   border: 3px solid #fafafa;
   border-radius:10px;
 }
 
-.real_login_form .login-help a{
+.login-form .login-help a{
   text-decoration: none;
 }
 
-.real_login_form .login-help p{
+.login-form .login-help p{
   font-size: 15px!important;
   font-size: 3.5vw;
   font-family: 'Athelas';
@@ -72,7 +72,7 @@
   text-decoration: none;
 }
 
-.real_login_form .login-help p:hover{
+.login-form .login-help p:hover{
   color: #212529;
   text-decoration: underline;
   transition: all ease-in-out 500ms;
@@ -82,13 +82,20 @@
 /*--------------------------------------------------------------
 # Sign up / register
 --------------------------------------------------------------*/
+
 .sign_up_bg {
   background-color: #dcd7d4;
+  padding-top: 5%;
+  display: flex;
+  height: 90vh;
 }
-.sign_up_bg .robot_art {
-  max-width: 40%;
-  padding-left: 5%;
-  padding-right: 5%;
+
+.account{
+  background: url('../../images/account_art.png') no-repeat scroll center center/contain!important;
+}
+
+.password-reset{
+  height: 80%;
 }
 
 .update_profile_background {

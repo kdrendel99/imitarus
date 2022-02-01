@@ -1,7 +1,5 @@
 import { useAuth } from '../contexts/AuthContext'
 import React, {useState, useRef} from "react";
-// import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import accountart from '../../images/account_art.png';
 import { Link, useHistory } from 'react-router-dom';
 import { useFirestore } from 'react-redux-firebase';
 import './users.css'
@@ -45,58 +43,40 @@ const SignUp = (props) => {
     setLoading(false)
   }
 
-
   return (
     <React.Fragment>
     {error && alert(error)}
-    <section>
-    <div className="sign_up_bg">
-    <div className="padding"/>
-    <div className="padding"/>
-    <div className="padding"/>
-      <div className="container-fluid">
-        <div className="row justify-content-center g-0">
-          <div className="col-sm-6 col-xs-12">
+    <section className="d-flex align-items-center sign_up_bg">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
             <h1 className="font-weight-bold py-3">Create an account</h1>
             <h4>Join the community.</h4>
             <form onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="col-lg-7">
-                  <input type="name" placeholder="name" className="form-control my-3 p-2" ref={nameRef} required/>
-                </div>
+              <div className="my-3">
+                <input type="name" placeholder="name" className="form-control my-3 p-2" ref={nameRef} required/>
               </div>
-							<div className="form-row">
-                <div className="col-lg-7">
-                  <input type="email" placeholder="Email" name="email" className="form-control my-3 p-2" ref={emailRef} required/>
-                </div>
+              <div className="my-3">
+                <input type="email" placeholder="Email" name="email" className="form-control my-3 p-2" ref={emailRef} required/>
               </div>
-							<div className="form-row">
-                <div className="col-lg-7">
-                  <input type="password" placeholder="******" name="password" className="form-control my-3 p-2" ref={passwordRef} required/>
-                </div>
+              <div className="my-3">
+                <input type="password" placeholder="******" name="password" className="form-control my-3 p-2" ref={passwordRef} required/>
               </div>
-              <div className="form-row">
-                <div className="col-lg-7">
-                  <input type="password" placeholder="******" name="passwordConfirmation" className="form-control my-3 p-2" ref={passwordConfirmRef} required/>
-                </div>
-                <div className="form-row">
-                  <div className="col-lg-7">
-									<button disabled={loading} className="login-btn my-2 p-1" type="submit">Sign Up</button>
-                  </div>
-                </div>
-                <p>Already have an account? 
-                  <Link to="/login" className="mx-2 text-decoration-none login-btn">Log In</Link>
-                </p>
+              <div className="my-3">
+                <input type="password" placeholder="******" name="passwordConfirmation" className="form-control my-3 p-2" ref={passwordConfirmRef} required/>
               </div>
+              <div className="my-3">
+                <button disabled={loading} className="login-btn my-2 p-1" type="submit">Sign Up</button>
+              </div>
+              <p>Already have an account? 
+                <Link to="/login" className="mx-2 text-decoration-none login-btn">Log In</Link>
+              </p>
             </form>
           </div>
-					<div className="robot_art my-auto d-none d-sm-block col-sm-6">
-						<img src={accountart} className="img-fluid"/>
-					</div>
+          <div className="col-lg-6 order-1 order-lg-1 d-flex justify-content-center account"/>
         </div>
       </div>
-			</div>
-      </section>
+    </section>
     </React.Fragment>
   );
 }

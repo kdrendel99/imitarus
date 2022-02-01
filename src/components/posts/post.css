@@ -107,7 +107,9 @@ border-radius:10px;
   text-decoration: underline;
   transition: all ease-in-out 500ms;
 }
-
+.bi-heart-fill, .bi-heart:hover{
+  cursor: pointer;
+}
 
 .new-post-form {
   height: 100vh;

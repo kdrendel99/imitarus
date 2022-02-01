@@ -2,8 +2,6 @@ import React, {useState, useRef} from "react";
 import { useAuth } from '../contexts/AuthContext'
 import {Link} from 'react-router-dom';
 import firebase from "firebase/app";
-// import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import accountart from '../../images/account_art.png';
 import './users.css'
 
 export default function ForgotPassword(){
@@ -33,44 +31,33 @@ export default function ForgotPassword(){
   <React.Fragment>
   {error && alert(error)}
   {error && alert(message)}
-  <div className="sign_up_bg">
-  <div className="padding"/>
-  <div className="padding"/>
-  <div className="padding"/>
-    <div className="container-fluid">
-      <div className="row justify-content-center g-0">
-        <div className="col-sm-6 col-xs-12">
-          <h1 className="font-weight-bold py-3">Password reset</h1>
-          <h4>Let's get this sorted out.</h4>
-          <form onSubmit={handleSubmit}>
-            <div className="form-row">
-              <div className="col-lg-7">
-                <input type="email" placeholder="Email" name="email" className="form-control my-3 p-2" ref={emailRef} required/>
+    <section className="d-flex align-items-center sign_up_bg">
+      <div className="container align-items-center password-reset">
+        <div className="row h-100">
+          <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <h1 className="font-weight-bold py-3">Password reset</h1>
+            <h4>Let's get this sorted out.</h4>
+            <form onSubmit={handleSubmit}>
+              <div className="my-3">
+                <input type="email" placeholder="Email" name="email" className="form-control p-2 w-75" ref={emailRef} required/>
               </div>
-            </div>
-            <div className="form-row">
-              <div className="form-row">
-                <div className="col-lg-7">
+              <div className="my-3">
                 <button disabled={loading} className="login-btn my-2 p-1" type="submit">Reset password</button>
-                </div>
               </div>
               <p>Already have an account? 
-                <Link to="/login">Log In</Link>
+                <Link to="/login" className="mx-2 login-btn">Log In</Link>
               </p>
-              <p>Need an account? Create one 
-                <Link to='/signup'>
-                  here
+              <p>Need an account? 
+                <Link to='/signup' className="mx-2 login-btn">
+                  Create one here
                 </Link>
               </p>
-            </div>
-          </form>
-        </div>
-        <div className="robot_art my-auto d-none d-sm-block col-sm-6">
-          <img src={accountart} className="img-fluid"/>
+            </form>
+          </div>
+          <div className="col-lg-6 order-1 order-lg-1 d-flex justify-content-center account"/>
         </div>
       </div>
-    </div>
-    </div>
+    </section>
   </React.Fragment>
   );
 }

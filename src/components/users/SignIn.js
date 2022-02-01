@@ -33,7 +33,7 @@ const SignIn = (props) => {
   return (
     <React.Fragment>
       {error && alert(error)}
-      <div className="real_login_form">
+      <div className="login-form">
         <div className="container col1 d-flex align-items-center justify-content-center">
 
           <div className="row form1 w-85">

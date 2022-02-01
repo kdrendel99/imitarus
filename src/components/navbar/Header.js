@@ -78,7 +78,8 @@ function Header(props){
   return (
     {dropdown},
     <React.Fragment>
-      <header id="header" className="fixed-top d-flex align-items-center justify-content-between">
+      {/* <header id="header" className="fixed-top d-flex align-items-center justify-content-between"> */}
+      <header id="header" className="fixed-top">
         <div className="container-fluid g-4 d-flex justify-content-between">
 
         <h1 className="logo pt-1"><span onClick={() => resetSelected()}>IMITARUS</span></h1>
