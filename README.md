@@ -1,4 +1,4 @@
-# Imitarus - Link to HOSTED SITE [HERE](https://imitarus.web.app/)
+# Imitarus - Link to hosted site [here](https://imitarus.web.app/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
